@@ -1,22 +1,21 @@
 package br.com.garrav.projetogarrav;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import br.com.garrav.projetogarrav.data.LoginTextValidator;
 import br.com.garrav.projetogarrav.model.User;
 import br.com.garrav.projetogarrav.util.MessageActionUtil;
+import br.com.garrav.projetogarrav.util.RetrofitUtil;
 import br.com.garrav.projetogarrav.ws.UserService;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,49 +38,60 @@ public class MainActivity extends AppCompatActivity {
         this.tvLoginEmail = findViewById(R.id.tvLoginEmail);
         this.tvLoginPassword = findViewById(R.id.tvLoginPassword);
 
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        final LoginTextValidator ltv = new LoginTextValidator();
+        boolean val = ltv.valLoginText(
+                this,
+                this.tvLoginEmail.getText().toString(),
+                this.tvLoginPassword.getText().toString()
+        );
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.191:8080/")
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        if(val) {
 
-        UserService us = retrofit.create(UserService.class);
+            Retrofit retrofit = RetrofitUtil.getUrlServer();
 
-        Call<User> callUserLogin =
-                us.getJsonLogin();
+            UserService us = retrofit.create(UserService.class);
 
-        final Context ctx = this;
+            Call<User> callUserLogin =
+                    us.getJsonLogin(this.tvLoginEmail.getText().toString());
 
-        callUserLogin.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                User user = response.body();
+            final Context ctx = this;
 
-                if(user == null) {
+            callUserLogin.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    User user = response.body();
+
+                    if (user != null) {
+                        boolean val = ltv.valHashPassword(
+                                ctx,
+                                tvLoginPassword.getText().toString(),
+                                user.getPassword()
+                        );
+                        if(!val) {
+                            user = null;
+                        } else {
+                            User.setUniqueUser(user);
+                            MessageActionUtil.makeText(
+                                    ctx,
+                                    "Login bem-sucedido"
+                            );
+                        }
+                    } else {
+                        MessageActionUtil.makeText(
+                                ctx,
+                                "E-mail ou Senha Incorretos!"
+                        );
+                    }
+                }
+                
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
                     MessageActionUtil.makeText(
                             ctx,
-                            "Erro"
-                    );
-                } else {
-                    MessageActionUtil.makeText(
-                            ctx,
-                            "Usuário: " + user.getName() + " - Senha: " + user.getPassword() +
-                                    " - Email: " + user.getEmail()
+                            t.getMessage()
                     );
                 }
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                MessageActionUtil.makeText(
-                        ctx,
-                        t.getMessage()
-                );
-            }
-        });
+            });
+        }
     }
 }

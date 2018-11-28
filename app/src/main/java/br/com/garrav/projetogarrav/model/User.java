@@ -8,6 +8,8 @@ public class User {
     private String email;
     private String password;
 
+    private static User uniqueUser;
+
     public long getId() {
         return id;
     }
@@ -46,5 +48,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public static User getUniqueUser() {
+        return uniqueUser;
+    }
+
+    public static void setUniqueUser(User uniqueUser) {
+        User.uniqueUser = uniqueUser;
     }
 }
