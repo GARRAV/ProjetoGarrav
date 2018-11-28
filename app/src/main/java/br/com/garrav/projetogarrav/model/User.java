@@ -2,8 +2,19 @@ package br.com.garrav.projetogarrav.model;
 
 public class User {
 
+    private long id;
     private String name;
+    private String fic_name;
+    private String email;
     private String password;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -11,6 +22,22 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getFic_name() {
+        return fic_name;
+    }
+
+    public void setFic_name(String fic_name) {
+        this.fic_name = fic_name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

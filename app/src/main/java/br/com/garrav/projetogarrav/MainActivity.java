@@ -69,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     MessageActionUtil.makeText(
                             ctx,
-                            "Usuário: " + user.getName() + " - Senha: " + user.getPassword()
+                            "Usuário: " + user.getName() + " - Senha: " + user.getPassword() +
+                                    " - Email: " + user.getEmail()
                     );
                 }
             }
