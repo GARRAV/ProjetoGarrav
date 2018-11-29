@@ -3,4 +3,5 @@
     <string name="LoginEmail">E-mail</string>
     <string name="LoginPassword">Senha</string>
     <string name="btLogin">Login</string>
+    <string name="challenge">Desafios</string>
 </resources>

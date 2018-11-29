@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <!-- Field Login_E-mail -->
@@ -26,10 +26,21 @@
 
     <!-- Button Login -->
     <Button
+        android:id="@+id/btLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvLoginPassword"
         android:onClick="btLogin"
         android:hint="@string/btLogin"/>
+
+    <!-- ProgressBar Loading Login -->
+    <ProgressBar
+        android:id="@+id/pbLoginLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvLoginPassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"
+        android:visibility="invisible"/>
 
 </RelativeLayout>

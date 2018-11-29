@@ -7,6 +7,13 @@ import retrofit2.http.Path;
 
 public interface UserService {
 
+    /**
+     * Requisição GET que será feita com o servidor com os parâmetros
+     * informados do Usuário
+     *
+     * @param email E-mail recebido pelo Usuário
+     * @return link da API que será feita no servidor com o parâmetro
+     */
     @GET("/GarravWS/webresources/user/login/{email}")
     Call<User> getJsonLogin(
             @Path("email") String email
