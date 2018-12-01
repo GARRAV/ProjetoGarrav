@@ -8,6 +8,7 @@ public class User {
     private String email;
     private String password;
 
+    //Actual User
     private static User uniqueUser;
 
     public long getId() {
@@ -50,6 +51,7 @@ public class User {
         this.password = password;
     }
 
+    //Actual User
     public static User getUniqueUser() {
         return uniqueUser;
     }

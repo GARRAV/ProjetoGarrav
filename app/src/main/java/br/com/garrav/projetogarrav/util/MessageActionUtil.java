@@ -5,7 +5,13 @@ import android.widget.Toast;
 
 public class MessageActionUtil {
 
-    //Toast
+    /**
+     * Método estático responsável de mostrar uma mensagem Toast rapida
+     * para o Usuário, sendo universal para todas as classes do projeto
+     *
+     * @param context Contexto da atual activity em execução do android
+     * @param message Mensagem que será transmitida para o Usuário
+     */
     public static void makeText(Context context,
                                 String message) {
 

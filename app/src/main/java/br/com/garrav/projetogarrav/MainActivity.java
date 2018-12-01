@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                  * o que aconteceu para a conexão não ter sido feita
                  *
                  * @param call Chamado da API do servidor
-                 * @param t Erro acontecido durante o chamado
+                 * @param t Erro ocorrido durante o chamado
                  */
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {

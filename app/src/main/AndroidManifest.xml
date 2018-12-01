@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AfterLoginActivity"></activity>
+        <activity android:name=".AfterLoginActivity" />
+        <activity android:name=".ChallengeActivity"></activity>
     </application>
 
 </manifest>

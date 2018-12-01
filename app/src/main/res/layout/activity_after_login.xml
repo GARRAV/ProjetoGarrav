@@ -9,9 +9,18 @@
 
     <!-- Button Challenge -->
     <Button
+        android:id="@+id/btChallenge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="btChallenge"
         android:hint="@string/challenge"/>
+
+    <!-- Button  -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btChallenge"
+        android:onClick="btSupportiveFriend"
+        android:hint="@string/SupportiveFriend"/>
 
 </RelativeLayout>

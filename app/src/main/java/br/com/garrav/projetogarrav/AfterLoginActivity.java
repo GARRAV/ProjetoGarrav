@@ -1,5 +1,6 @@
 package br.com.garrav.projetogarrav;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,5 +26,17 @@ public class AfterLoginActivity extends AppCompatActivity {
     }
 
     public void btChallenge(View view) {
+
+        //Mudança de Activity -> ChallengeActivity
+        Intent it = new Intent(
+                this,
+                ChallengeActivity.class
+        );
+        startActivity(it);
+
+    }
+
+    public void btSupportiveFriend(View view) {
+
     }
 }

@@ -7,6 +7,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitUtil {
 
+    /**
+     * Método responsável por invocar o framework Retrofit e fazer
+     * a operação desejada com a API
+     *
+     * @return Retorna uma instância Retrofit configurada para fazer
+     * a conexão com a API do servidor
+     */
     public static Retrofit getUrlServer() {
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
