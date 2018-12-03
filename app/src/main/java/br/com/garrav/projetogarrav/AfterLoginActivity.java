@@ -50,5 +50,11 @@ public class AfterLoginActivity extends AppCompatActivity {
      */
     public void btSupportiveFriend(View view) {
 
+        //Mudança de Activity -> SupportiveFriendActivity
+        Intent it = new Intent(
+                this,
+                SupportiveFriendActivity.class
+        );
+        startActivity(it);
     }
 }

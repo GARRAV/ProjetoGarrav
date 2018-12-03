@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AfterLoginActivity" />
-        <activity android:name=".ChallengeActivity"></activity>
+        <activity android:name=".ChallengeActivity" />
+        <activity android:name=".SupportiveFriendActivity"></activity>
     </application>
 
 </manifest>
