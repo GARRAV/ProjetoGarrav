@@ -11,6 +11,8 @@ public class MessageActionUtil {
      *
      * @param context Contexto da atual activity em execução do android
      * @param message Mensagem que será transmitida para o Usuário
+     * @author Felipe Savaris
+     * @since 27/11/2018
      */
     public static void makeText(Context context,
                                 String message) {

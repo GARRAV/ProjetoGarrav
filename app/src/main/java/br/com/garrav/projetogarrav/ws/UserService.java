@@ -13,6 +13,8 @@ public interface UserService {
      *
      * @param email E-mail recebido pelo Usuário
      * @return link da API que será feita no servidor com o parâmetro
+     * @author Felipe Savaris
+     * @since 27/11/2018
      */
     @GET("/GarravWS/webresources/user/login/{email}")
     Call<User> getJsonLogin(

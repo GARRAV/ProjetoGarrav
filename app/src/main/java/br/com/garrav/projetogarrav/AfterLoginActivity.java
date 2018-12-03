@@ -25,6 +25,12 @@ public class AfterLoginActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    /**
+     *
+     * @param view
+     * @author Felipe Savaris
+     * @since 29/11/2018
+     */
     public void btChallenge(View view) {
 
         //Mudança de Activity -> ChallengeActivity
@@ -36,6 +42,12 @@ public class AfterLoginActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     * @param view
+     * @author Felipe Savaris
+     * @since 01/12/2018
+     */
     public void btSupportiveFriend(View view) {
 
     }

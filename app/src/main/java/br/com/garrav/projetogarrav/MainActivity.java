@@ -46,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
      *  será feito, caso não esteja válido, o método será encerrado.
      *
      * @param view é a instância da activity em execução para a interação
-     *             da mesma
+     *             da mesma.
+     * @author Felipe Savaris
+     * @since 27/11/2018
      */
     public void btLogin(View view) {
 
@@ -102,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
                  *
                  * @param call Chamado da API do servidor
                  * @param response Resposta do Servidor
+                 * @author Felipe Savaris
+                 * @since 27/11/2018
                  */
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
@@ -176,6 +180,8 @@ public class MainActivity extends AppCompatActivity {
                  *
                  * @param call Chamado da API do servidor
                  * @param t Erro ocorrido durante o chamado
+                 * @author Felipe Savaris
+                 * @since 27/11/2018
                  */
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {

@@ -17,6 +17,8 @@ public class LoginTextValidator {
      * @param password Senha vindo da MainActivity.java
      * @return Retorno do resultado da validação de textos, se true aprovado
      * se false reprovado
+     * @author Felipe Savaris
+     * @since 28/11/2018
      */
     public boolean valLoginText(Context context,
                                 String email,
@@ -52,6 +54,8 @@ public class LoginTextValidator {
      * @param hashPassword Hash da senha cadastrada no banco de dados do servidor
      * @return Retorno do resultado da validação da senha, se true aprovado,
      * se false reprovado
+     * @author Felipe Savaris
+     * @since 28/11/2018
      */
     public boolean valHashPassword(Context context,
                                    String password,

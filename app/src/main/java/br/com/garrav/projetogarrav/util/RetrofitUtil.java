@@ -13,6 +13,8 @@ public class RetrofitUtil {
      *
      * @return Retorna uma instância Retrofit configurada para fazer
      * a conexão com a API do servidor
+     * @author Felipe Savaris
+     * @since 28/11/2018
      */
     public static Retrofit getUrlServer() {
 
