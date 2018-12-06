@@ -57,4 +57,20 @@ public class AfterLoginActivity extends AppCompatActivity {
         );
         startActivity(it);
     }
+
+    /**
+     *
+     * @param view
+     * @author Felipe Savaris
+     * @since 05/12/2018
+     */
+    public void btMapsEvents(View view) {
+
+        //Mudança de Activity -> MapsEventsActivity
+        Intent it = new Intent(
+                this,
+                MapsEventsActivity.class
+        );
+        startActivity(it);
+    }
 }
