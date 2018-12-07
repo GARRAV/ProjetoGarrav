@@ -54,6 +54,13 @@ public class MapsEventsActivity extends AppCompatActivity
         }
     }
 
+    /**
+     *
+     * @param menu
+     * @author Felipe Savaris
+     * @since 05/12/2018
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -61,6 +68,13 @@ public class MapsEventsActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     *
+     * @param item
+     * @author Felipe Savaris
+     * @since 05/12/2018
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -76,6 +90,13 @@ public class MapsEventsActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    /**.
+     *
+     * @param item
+     * @author Felipe Savaris
+     * @since 05/12/2018
+     * @return
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
