@@ -1,5 +1,6 @@
 package br.com.garrav.projetogarrav;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -46,6 +47,7 @@ public class MapsEventsActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        //Fecha a barra lateral se aberta pelo botão retornar
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -105,18 +107,13 @@ public class MapsEventsActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //Opções de seleção
-        if (id == R.id.nav_camera) {
-
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        switch (id) {
+            case R.id.nav_register_event_my_location :
+                Intent it = new Intent(
+                        this,
+                        RegisterEventActivity.class
+                );
+                startActivity(it);
         }
 
         //Fecha a barra lateral após item selecionado

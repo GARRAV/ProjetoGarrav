@@ -1,6 +1,9 @@
 package br.com.garrav.projetogarrav;
 
+import android.Manifest;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -10,6 +13,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import br.com.garrav.projetogarrav.util.MessageActionUtil;
+import br.com.garrav.projetogarrav.util.PermissionUtil;
 
 public class MapsFragment
         extends SupportMapFragment
@@ -17,6 +21,7 @@ public class MapsFragment
         GoogleMap.OnMapClickListener {
 
     private GoogleMap mMap;
+    private final int REQUEST_PERMISSIONS_CODE = 128;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,20 +44,41 @@ public class MapsFragment
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
 
-        mMap.setOnMapClickListener(this);
+        try {
+            mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
+            mMap.setOnMapClickListener(this);
 
-        MarkerOptions marker = new MarkerOptions();
-        marker.position(sydney);
-        marker.title("Marker in Sydney");
+            // Adiciona um marcador na Unioeste de Toledo - PR
+            LatLng unioesteLocation = new LatLng(-24.724407, -53.752796);
 
-        mMap.addMarker(marker);
+            MarkerOptions marker = new MarkerOptions();
+            marker.position(unioesteLocation);
+            marker.title("Localização da Unioeste - Toledo PR");
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            mMap.addMarker(marker);
+
+            //Verifica se as permissões necessárias estão ativadas
+            int permission = ContextCompat.checkSelfPermission(
+                    getContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION
+            );
+
+            //Pedido da permissão, caso não ativo
+            if (permission == -1) {
+                PermissionUtil.callAccessFine_CoarseLocation(
+                        getActivity(),
+                        REQUEST_PERMISSIONS_CODE
+                );
+            }
+
+            mMap.setMyLocationEnabled(true);
+
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(unioesteLocation, 16.5f));
+        } catch (SecurityException ex) {
+            Log.d("MapsFragment", "Error", ex);
+        }
     }
 
     /**
