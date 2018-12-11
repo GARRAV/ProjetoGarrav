@@ -1,6 +1,7 @@
 package br.com.garrav.projetogarrav;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -12,7 +13,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import br.com.garrav.projetogarrav.util.MessageActionUtil;
 import br.com.garrav.projetogarrav.util.PermissionUtil;
 
 public class MapsFragment
@@ -22,6 +22,7 @@ public class MapsFragment
 
     private GoogleMap mMap;
     private final int REQUEST_PERMISSIONS_CODE = 128;
+    public static boolean EVENT_REGISTER = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,26 @@ public class MapsFragment
 
             mMap.setOnMapClickListener(this);
 
+            //Verifica se as permissões necessárias estão ativadas
+            int permission = ContextCompat.checkSelfPermission(
+                    getContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION
+            );
+            //Pedido da permissão, caso não ativo
+            if (permission == -1) {
+                PermissionUtil.callAccessFine_CoarseLocation(
+                        getActivity(),
+                        REQUEST_PERMISSIONS_CODE
+                );
+            }
+
+            /*Ativa o GPS
+                Opção de criação de evento por GPS não ativa no momento
+             */
+            if(!mMap.isMyLocationEnabled()) {
+                mMap.setMyLocationEnabled(true);
+            }
+
             // Adiciona um marcador na Unioeste de Toledo - PR
             LatLng unioesteLocation = new LatLng(-24.724407, -53.752796);
 
@@ -59,23 +80,9 @@ public class MapsFragment
 
             mMap.addMarker(marker);
 
-            //Verifica se as permissões necessárias estão ativadas
-            int permission = ContextCompat.checkSelfPermission(
-                    getContext(),
-                    Manifest.permission.ACCESS_FINE_LOCATION
-            );
-
-            //Pedido da permissão, caso não ativo
-            if (permission == -1) {
-                PermissionUtil.callAccessFine_CoarseLocation(
-                        getActivity(),
-                        REQUEST_PERMISSIONS_CODE
-                );
-            }
-
-            mMap.setMyLocationEnabled(true);
-
+            //Movimentação do mapa para a Unioeste
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(unioesteLocation, 16.5f));
+
         } catch (SecurityException ex) {
             Log.d("MapsFragment", "Error", ex);
         }
@@ -90,11 +97,15 @@ public class MapsFragment
     @Override
     public void onMapClick(LatLng latLng) {
 
-        //Mensagem teste
-        MessageActionUtil.makeText(
-                getContext(),
-                "Coordenadas(lat/lng): " + latLng.toString()
-        );
-
+        if(EVENT_REGISTER) {
+            //Mudança de Activity -> RegisterEventActivity
+            Intent it = new Intent(
+                    getContext(),
+                    RegisterEventActivity.class
+            );
+            it.putExtra("coordinates", latLng.toString());
+            startActivity(it);
+            EVENT_REGISTER = false;
+        }
     }
 }

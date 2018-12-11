@@ -1,6 +1,5 @@
 package br.com.garrav.projetogarrav;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import br.com.garrav.projetogarrav.util.MessageActionUtil;
 
 public class MapsEventsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -47,6 +48,9 @@ public class MapsEventsActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+
+        if(MapsFragment.EVENT_REGISTER) MapsFragment.EVENT_REGISTER = false;
+
         //Fecha a barra lateral se aberta pelo botão retornar
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -106,14 +110,18 @@ public class MapsEventsActivity extends AppCompatActivity
         //Id da opção selecionada
         int id = item.getItemId();
 
-        //Opções de seleção
+        //Opções de seleção da barra lateral
         switch (id) {
+            //Registro de eventos
             case R.id.nav_register_event_my_location :
-                Intent it = new Intent(
+
+                MapsFragment.EVENT_REGISTER = true;
+
+                //Mensagem teste
+                MessageActionUtil.makeText(
                         this,
-                        RegisterEventActivity.class
+                        "Selecione o local do evento"
                 );
-                startActivity(it);
         }
 
         //Fecha a barra lateral após item selecionado
