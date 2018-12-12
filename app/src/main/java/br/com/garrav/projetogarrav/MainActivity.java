@@ -45,8 +45,7 @@ public class MainActivity extends AppCompatActivity {
      *  servidor, se os dados conferem com os textos apresentados, o login
      *  será feito, caso não esteja válido, o método será encerrado.
      *
-     * @param view é a instância da activity em execução para a interação
-     *             da mesma.
+     * @param view Elemento utilizado para inicializar a ação
      * @author Felipe Savaris
      * @since 27/11/2018
      */

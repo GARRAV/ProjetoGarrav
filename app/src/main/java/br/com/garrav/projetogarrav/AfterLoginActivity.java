@@ -27,7 +27,7 @@ public class AfterLoginActivity extends AppCompatActivity {
 
     /**
      *
-     * @param view
+     * @param view Elemento utilizado para inicializar a ação
      * @author Felipe Savaris
      * @since 29/11/2018
      */
@@ -44,7 +44,7 @@ public class AfterLoginActivity extends AppCompatActivity {
 
     /**
      *
-     * @param view
+     * @param view Elemento utilizado para inicializar a ação
      * @author Felipe Savaris
      * @since 01/12/2018
      */
@@ -60,7 +60,7 @@ public class AfterLoginActivity extends AppCompatActivity {
 
     /**
      *
-     * @param view
+     * @param view Elemento utilizado para inicializar a ação
      * @author Felipe Savaris
      * @since 05/12/2018
      */

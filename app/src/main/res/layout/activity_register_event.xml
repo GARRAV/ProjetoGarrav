@@ -38,7 +38,7 @@
         android:hint="@string/NameEvent"
         android:inputType="text"/>
 
-    <!-- EditText A Implementar-->
+    <!-- EditText AddressEvent-->
     <EditText
         android:id="@+id/etAddressEvent"
         android:layout_width="match_parent"
@@ -54,6 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/etAddressEvent"
         android:hint="@string/DateEvent"
+        android:focusable="false"
         android:inputType="date"/>
 
     <!-- EditText ObjectiveEvent -->
@@ -70,6 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etObjectiveEvent"
+        android:onClick="btRegisterEvent"
         android:text="@string/btRegisterEvent"/>
 
 </RelativeLayout>
