@@ -1,9 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".RegisterEventActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <!-- RadioGroup TypeEvent -->
+    <RadioGroup
+        android:id="@+id/rgTypeEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <!-- RadioButton SupportEvent -->
+        <RadioButton
+            android:id="@+id/rbSupportEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/SupportEvent"/>
+
+        <!-- RadioButton SocialEvent -->
+        <RadioButton
+            android:id="@+id/rbSocialEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/SocialEvent"/>
+
+    </RadioGroup>
+
+    <!-- EditText NameEvent -->
+    <EditText
+        android:id="@+id/etNameEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rgTypeEvent"
+        android:hint="@string/NameEvent"
+        android:inputType="text"/>
+
+    <!-- EditText A Implementar-->
+    <EditText
+        android:id="@+id/etAddressEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etNameEvent"
+        android:hint="@string/AddressEvent"
+        android:inputType="text"/>
+
+    <!-- EditText Event's Date -->
+    <EditText
+        android:id="@+id/etDateEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etAddressEvent"
+        android:hint="@string/DateEvent"
+        android:inputType="date"/>
+
+    <!-- EditText ObjectiveEvent -->
+    <EditText
+        android:id="@+id/etObjectiveEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etDateEvent"
+        android:hint="@string/ObjetiveEvent"
+        android:inputType="textMultiLine"/>
+
+    <!-- Button RegisterEvent -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etObjectiveEvent"
+        android:text="@string/btRegisterEvent"/>
+
+</RelativeLayout>
