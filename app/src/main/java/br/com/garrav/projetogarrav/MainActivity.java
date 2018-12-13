@@ -14,10 +14,13 @@ import br.com.garrav.projetogarrav.model.User;
 import br.com.garrav.projetogarrav.util.MessageActionUtil;
 import br.com.garrav.projetogarrav.util.RetrofitUtil;
 import br.com.garrav.projetogarrav.ws.UserService;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -74,8 +77,17 @@ public class MainActivity extends AppCompatActivity {
             this.pbLoginLoading.setVisibility(View.VISIBLE);
 
 
-            //Restaga o link do servidor configurado
-            Retrofit retrofit = RetrofitUtil.getUrlServer();
+            //Ação Retrofit - Servidor
+            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
+            //Definições Retrofit
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(RetrofitUtil.getUrlServer())
+                    .client(client)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
 
             //Resgata o link que fará o service com a API
             UserService us = retrofit.create(UserService.class);
