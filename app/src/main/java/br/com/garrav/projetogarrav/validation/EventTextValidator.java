@@ -1,4 +1,4 @@
-package br.com.garrav.projetogarrav.data;
+package br.com.garrav.projetogarrav.validation;
 
 import android.content.Context;
 
@@ -75,19 +75,25 @@ public class EventTextValidator {
         //Filter Date Event
         //Dia
         if(day < calendar.get(Calendar.DAY_OF_MONTH)) {
-            MessageActionUtil.makeText(
-                    context,
-                    "O dia do evento não pode ser anterior à data atual!"
-            );
-            return false;
+            if(month == calendar.get(Calendar.MONTH)
+                    &&
+                    year == calendar.get(Calendar.YEAR)) {
+                MessageActionUtil.makeText(
+                        context,
+                        "O dia do evento não pode ser anterior à data atual!"
+                );
+                return false;
+            }
         }
         //Mês
         if(month < calendar.get(Calendar.MONTH)) {
-            MessageActionUtil.makeText(
-                    context,
-                    "O dia do evento não pode ser anterior à data atual!"
-            );
-            return false;
+            if(year == calendar.get(Calendar.YEAR)) {
+                MessageActionUtil.makeText(
+                        context,
+                        "O dia do evento não pode ser anterior à data atual!"
+                );
+                return false;
+            }
         }
         //Ano
         if(year < calendar.get(Calendar.YEAR)) {
@@ -104,7 +110,64 @@ public class EventTextValidator {
     /**
      *
      * @param context
+     * @param day
+     * @param month
+     * @param year
+     * @param hour
+     * @return
+     * @author Felipe Savaris
+     * @since 17/12/2018
+     */
+    public boolean valEventTime(Context context,
+                                int day,
+                                int month,
+                                int year,
+                                int hour) {
+
+        Calendar cal = Calendar.getInstance();
+
+        month = month + 1;
+
+        //Filter Time Event
+        //Hour
+        //Dia atual
+        if(cal.get(Calendar.DAY_OF_MONTH) == day
+                &&
+                cal.get(Calendar.MONTH) == month - 1
+                &&
+                cal.get(Calendar.YEAR) == year) {
+
+            //Hora anterior
+            if(hour <= cal.get(Calendar.HOUR_OF_DAY)) {
+                MessageActionUtil.makeText(
+                        context,
+                        "Evento de dia atual, não pode ser marcado para " +
+                                "a mesma hora"
+                );
+                return false;
+            }
+            //Duas horas
+            if(hour == cal.get(Calendar.HOUR_OF_DAY) + 1
+                    ||
+                    hour == cal.get(Calendar.HOUR_OF_DAY) + 2) {
+                MessageActionUtil.makeText(
+                        context,
+                        "Evento de dia atual, deve ter pelo menos 3 horas " +
+                                "até o evento começar"
+                );
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     *
+     * @param context
      * @param nameEvent
+     * @param dateEvent
+     * @param timeEvent
      * @param objectiveEvent
      * @return
      * @author Felipe Savaris
@@ -112,6 +175,8 @@ public class EventTextValidator {
      */
     public boolean valEventData(Context context,
                                 String nameEvent,
+                                String dateEvent,
+                                String timeEvent,
                                 String objectiveEvent) {
 
         //Filter Event Name
@@ -126,6 +191,24 @@ public class EventTextValidator {
             MessageActionUtil.makeText(
                     context,
                     "O nome do evento deve conter mais de 7 caracteres!"
+            );
+            return false;
+        }
+
+        //Filter Event Date
+        if(dateEvent.isEmpty()) {
+            MessageActionUtil.makeText(
+                    context,
+                    "Insira uma data!"
+            );
+            return false;
+        }
+
+        //Filter Event Time
+        if(timeEvent.isEmpty()) {
+            MessageActionUtil.makeText(
+                    context,
+                    "Insira um horário"
             );
             return false;
         }

@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
-import br.com.garrav.projetogarrav.data.LoginTextValidator;
+import br.com.garrav.projetogarrav.validation.LoginTextValidator;
 import br.com.garrav.projetogarrav.model.User;
 import br.com.garrav.projetogarrav.util.MessageActionUtil;
 import br.com.garrav.projetogarrav.util.RetrofitUtil;

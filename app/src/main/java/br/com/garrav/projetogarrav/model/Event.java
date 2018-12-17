@@ -7,7 +7,6 @@ public class Event {
     private long id;
     private String name;
     private String objective;
-    private String typeEvent;
     private Date dateEvent;
     private double latitude;
     private double longitude;
@@ -34,14 +33,6 @@ public class Event {
 
     public void setObjective(String objective) {
         this.objective = objective;
-    }
-
-    public String getTypeEvent() {
-        return typeEvent;
-    }
-
-    public void setTypeEvent(String typeEvent) {
-        this.typeEvent = typeEvent;
     }
 
     public Date getDateEvent() {

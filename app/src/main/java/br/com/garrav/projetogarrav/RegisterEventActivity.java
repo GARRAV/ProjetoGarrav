@@ -1,13 +1,14 @@
 package br.com.garrav.projetogarrav;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioButton;
+import android.widget.TimePicker;
 
 import com.google.gson.Gson;
 
@@ -15,7 +16,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Logger;
 
-import br.com.garrav.projetogarrav.data.EventTextValidator;
+import br.com.garrav.projetogarrav.validation.EventTextValidator;
 import br.com.garrav.projetogarrav.model.Event;
 import br.com.garrav.projetogarrav.util.MessageActionUtil;
 import br.com.garrav.projetogarrav.util.RetrofitUtil;
@@ -34,12 +35,20 @@ public class RegisterEventActivity extends AppCompatActivity {
 
     //Variáveis do Evento
     private String latLng;
-    private Date date;
 
-    private RadioButton rbSupportEvent, rbSocialEvent;
-    private EditText etNameEvent, etAddressEvent, etDateEvent, etObjectiveEvent;
+    //EditText's
+    private EditText etNameEvent, etAddressEvent, etDateEvent, etTimeEvent, etObjectiveEvent;
 
+    //Dialog's
     private DatePickerDialog.OnDateSetListener mDateSetListener;
+    private TimePickerDialog.OnTimeSetListener mTimeSetListener;
+
+    //Variáveis Date e hora
+    private int dayD;
+    private int monthD;
+    private int yearD;
+    private int hourD;
+    private int minuteD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +63,9 @@ public class RegisterEventActivity extends AppCompatActivity {
         this.latLng = getIntent().getStringExtra("coordinates");
         this.etAddressEvent = findViewById(R.id.etAddressEvent);
         this.etAddressEvent.setText(latLng);
+
+        //Init Time Date
+        this.etTimeEvent = findViewById(R.id.etTimeEvent);
 
         /*
         Quando clicado no EditText etDateEvent, abrirá um calendário
@@ -129,28 +141,108 @@ public class RegisterEventActivity extends AppCompatActivity {
                 //Resultado do filtro
                 if(boo) {
 
+                    if(!etTimeEvent.getText().toString().isEmpty()) {
+                        etTimeEvent.setText("");
+                    }
 
-                    //Set Date Variable
-                    Calendar cal = Calendar.getInstance();
-                    cal.set(
-                            year,
-                            month,
-                            day
-                    );
-                    date = cal.getTime();
+                    //Set Variáveis
+                    dayD = day;
+                    monthD = month;
+                    yearD = year;
 
-                    //Set Calendar
                     month = month + 1;
-                    cal.set(
-                            year,
-                            month,
-                            day
-                    );
 
                     //Set EditText
                     String date = day + "/" + month + "/" + year;
                     etDateEvent.setText(date);
                 }
+            }
+        };
+
+        /*
+        Quando clicado no EditText etTimeEvent, abrirá um TimePicker
+        para a seleção de horários do Evento
+         */
+        this.etTimeEvent.setOnClickListener(new View.OnClickListener() {
+            /**
+             *
+             *
+             * @param view
+             * @author Felipe Savaris
+             * @since 17/12/2018
+             */
+            @Override
+            public void onClick(View view) {
+
+                //Verificador se a data já foi estabelecida
+                if(etDateEvent.getText().toString().isEmpty()) {
+                    MessageActionUtil.makeText(
+                            RegisterEventActivity.this,
+                            "Selecione um Data primeiro"
+                    );
+                    return;
+                }
+
+                Calendar cal = Calendar.getInstance();
+
+                //Hora, Minuto
+                int hour = cal.get(Calendar.HOUR_OF_DAY);
+                int minute = cal.get(Calendar.MINUTE);
+
+                //TimePicker
+                TimePickerDialog dialog = new TimePickerDialog(
+                        RegisterEventActivity.this,
+                        mTimeSetListener,
+                        hour, minute,
+                        true
+                );
+
+                //Exibição do TimePicker
+                dialog.show();
+            }
+        });
+
+        /*
+        Resultado da hora após selecionada pelo usuário, separada por hora,
+        e minuto. Após resultado adiquirido, a hora passará por filtros para se
+        verificar se não é inválida
+         */
+        this.mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            /**
+             *
+             * @param timePicker
+             * @param hour
+             * @param minute
+             * @author Felipe Savaris
+             * @since 17/12/2018
+             */
+            @Override
+            public void onTimeSet(TimePicker timePicker,
+                                  int hour,
+                                  int minute) {
+
+                //Filter Time
+                EventTextValidator etv = new EventTextValidator();
+                boolean boo = etv.valEventTime(
+                        RegisterEventActivity.this,
+                        dayD,
+                        monthD,
+                        yearD,
+                        hour
+                );
+
+                //Resultado do Filtro
+                if(boo) {
+
+                    //Set Variáveis
+                    hourD = hour;
+                    minuteD = minute;
+
+                    String time = hour + ":" + minute;
+
+                    etTimeEvent.setText(time);
+                }
+
             }
         };
     }
@@ -163,22 +255,10 @@ public class RegisterEventActivity extends AppCompatActivity {
      */
     public void btRegisterEvent(View view) {
 
-        //Init Radio Button's
-        this.rbSupportEvent = findViewById(R.id.rbSupportEvent);
-        this.rbSocialEvent = findViewById(R.id.rbSocialEvent);
-
-        //Verificador de RadioButton Caso os dois estejam desmarcados
-        if(!this.rbSupportEvent.isChecked() && !this.rbSocialEvent.isChecked()) {
-            MessageActionUtil.makeText(
-                    this,
-                    "Selecione um tipo de evento!"
-            );
-            return;
-        }
-
         //Init EditText's
         this.etNameEvent = findViewById(R.id.etNameEvent);
         this.etDateEvent = findViewById(R.id.etDateEvent);
+        this.etTimeEvent = findViewById(R.id.etTimeEvent);
         this.etObjectiveEvent = findViewById(R.id.etObjectiveEvent);
 
         //Instância de novo evento e seu validador de texto
@@ -195,11 +275,27 @@ public class RegisterEventActivity extends AppCompatActivity {
         boolean boo = etv.valEventData(
                 this,
                 this.etNameEvent.getText().toString(),
+                this.etDateEvent.getText().toString(),
+                this.etTimeEvent.getText().toString(),
                 this.etObjectiveEvent.getText().toString()
         );
 
         //Resultado do filtro - True = Envio de dados ao servidor
         if(boo) {
+
+            //Date
+            Date date = new Date();
+            Calendar cal = Calendar.getInstance();
+
+            cal.set(yearD,
+                    monthD,
+                    dayD,
+                    hourD,
+                    minuteD
+            );
+            date = cal.getTime();
+
+            event.setDateEvent(date);
 
             //Instância do Evento
             event.setName(this.etNameEvent.getText().toString());

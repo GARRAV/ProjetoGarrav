@@ -7,34 +7,11 @@
     android:orientation="vertical"
     tools:context=".RegisterEventActivity">
 
-    <!-- RadioGroup TypeEvent -->
-    <RadioGroup
-        android:id="@+id/rgTypeEvent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <!-- RadioButton SupportEvent -->
-        <RadioButton
-            android:id="@+id/rbSupportEvent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/SupportEvent"/>
-
-        <!-- RadioButton SocialEvent -->
-        <RadioButton
-            android:id="@+id/rbSocialEvent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/SocialEvent"/>
-
-    </RadioGroup>
-
     <!-- EditText NameEvent -->
     <EditText
         android:id="@+id/etNameEvent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rgTypeEvent"
         android:hint="@string/NameEvent"
         android:inputType="text"/>
 
@@ -57,12 +34,21 @@
         android:focusable="false"
         android:inputType="date"/>
 
+    <EditText
+        android:id="@+id/etTimeEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etDateEvent"
+        android:hint="@string/DateTime"
+        android:focusable="false"
+        android:inputType="time"/>
+
     <!-- EditText ObjectiveEvent -->
     <EditText
         android:id="@+id/etObjectiveEvent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etDateEvent"
+        android:layout_below="@+id/etTimeEvent"
         android:hint="@string/ObjetiveEvent"
         android:inputType="textMultiLine"/>
 
