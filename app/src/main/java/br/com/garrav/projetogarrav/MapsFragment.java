@@ -24,10 +24,50 @@ public class MapsFragment
     private final int REQUEST_PERMISSIONS_CODE = 128;
     public static boolean EVENT_REGISTER = false;
 
+    //Declaração das implementação caso uso de gps
+    /*private Location location;
+    private LocationManager locationManager;*/
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getMapAsync(this);
+
+        //Futura Implementação
+        /*//Inicio do Teste
+        double latitude = 0;
+        double longitude = 0;
+
+        this.locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        this.location = this.locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        if(location != null) {
+            longitude = this.location.getLongitude();
+            latitude = this.location.getLatitude();
+        }
+
+        LocationUtil lu = new LocationUtil();
+
+        address = lu.seekAddress(
+                this,
+                latitude,
+                longitude
+        );
+
+        this.etAddressEvent.setText(
+                this.address.getAddressLine(0)
+        );
+        //Fim do código Teste*/
     }
 
 

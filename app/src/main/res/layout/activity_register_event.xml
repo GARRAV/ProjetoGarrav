@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/etNameEvent"
         android:hint="@string/AddressEvent"
+        android:focusable="false"
         android:inputType="text"/>
 
     <!-- EditText Event's Date -->

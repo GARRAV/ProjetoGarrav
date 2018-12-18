@@ -2,6 +2,7 @@ package br.com.garrav.projetogarrav;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.location.Address;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,10 +17,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Logger;
 
-import br.com.garrav.projetogarrav.validation.EventTextValidator;
 import br.com.garrav.projetogarrav.model.Event;
+import br.com.garrav.projetogarrav.model.User;
+import br.com.garrav.projetogarrav.util.LocationUtil;
 import br.com.garrav.projetogarrav.util.MessageActionUtil;
 import br.com.garrav.projetogarrav.util.RetrofitUtil;
+import br.com.garrav.projetogarrav.validation.EventTextValidator;
 import br.com.garrav.projetogarrav.ws.EventService;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -32,9 +35,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class RegisterEventActivity extends AppCompatActivity {
-
-    //Variáveis do Evento
-    private String latLng;
 
     //EditText's
     private EditText etNameEvent, etAddressEvent, etDateEvent, etTimeEvent, etObjectiveEvent;
@@ -50,19 +50,47 @@ public class RegisterEventActivity extends AppCompatActivity {
     private int hourD;
     private int minuteD;
 
+    //Variáveis Address Endereço
+    private String latLng;
+    private double latitude;
+    private double longitude;
+    private Address address;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_event);
 
+        //Set Name ActionBar
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Registro de Eventos");
 
-        /*Set das Coordenadas como endereço: TEMPORÁRIO ATÉ DESCOBRIR COMO
-        converter as coordenadas em endereço real*/
+        //Get Coordinates
         this.latLng = getIntent().getStringExtra("coordinates");
+
+        //Adapter Coordinates
+        EventTextValidator etv = new EventTextValidator();
+
+        //Latitude Adapter
+        this.latitude = etv.valLatitude(this.latLng);
+        //Longitude Adapter
+        this.longitude = etv.valLongitude(this.latLng);
+
+        //Find Address
+        LocationUtil lu = new LocationUtil();
+        address = lu.seekAddress(
+                this,
+                this.latitude,
+                this.longitude
+        );
+
+        //Init Address EditText
         this.etAddressEvent = findViewById(R.id.etAddressEvent);
-        this.etAddressEvent.setText(latLng);
+
+        //Set EditText Address
+        this.etAddressEvent.setText(
+                this.address.getAddressLine(0)
+        );
 
         //Init Time Date
         this.etTimeEvent = findViewById(R.id.etTimeEvent);
@@ -251,7 +279,7 @@ public class RegisterEventActivity extends AppCompatActivity {
      *
      * @param view Elemento utilizado para inicializar a ação
      * @author Felipe Savaris
-     * @since  12/12/2018
+     * @since 12/12/2018
      */
     public void btRegisterEvent(View view) {
 
@@ -262,14 +290,7 @@ public class RegisterEventActivity extends AppCompatActivity {
         this.etObjectiveEvent = findViewById(R.id.etObjectiveEvent);
 
         //Instância de novo evento e seu validador de texto
-        Event event = new Event();
         EventTextValidator etv = new EventTextValidator();
-
-        //Validador das coordenadas como endereço
-        etv.valLatitudeLongitude(
-                event,
-                this.latLng
-        );
 
         //Validador de dados do Evento
         boolean boo = etv.valEventData(
@@ -283,24 +304,34 @@ public class RegisterEventActivity extends AppCompatActivity {
         //Resultado do filtro - True = Envio de dados ao servidor
         if(boo) {
 
-            //Date
-            Date date = new Date();
+            /*
+            Instância dos dados do Evento
+             */
+            Event event = new Event();
+            //Set Id_user
+            event.setId_user(User.getUniqueUser().getId());
+            //Set Name Event
+            event.setName(this.etNameEvent.getText().toString());
+            //Set Objective Event
+            event.setObjective(this.etObjectiveEvent.getText().toString());
+            //Set Latitude & Longitude
+            event.setLatitude(this.latitude);
+            event.setLongitude(this.longitude);
+            //Set Date & Time Event
             Calendar cal = Calendar.getInstance();
-
             cal.set(yearD,
                     monthD,
                     dayD,
                     hourD,
                     minuteD
             );
+            Date date;
             date = cal.getTime();
-
             event.setDateEvent(date);
 
-            //Instância do Evento
-            event.setName(this.etNameEvent.getText().toString());
-            event.setObjective(this.etObjectiveEvent.getText().toString());
-
+            /*
+            Inicio do Envio para servidor
+             */
             //Conversão para Json
             Gson gson = new Gson();
             String json = gson.toJson(event);

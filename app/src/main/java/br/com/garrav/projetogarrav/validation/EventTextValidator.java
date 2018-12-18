@@ -12,18 +12,16 @@ public class EventTextValidator {
     /**
      * Método responsável por receber uma String contendo a latitude
      * e longitude do local selecionado no Maps e formatá-lo para separar
-     * seu conteúdo para os inserir em uma instância de Event em suas
-     * devidas variáveis Double. O texto recebido é separado em duas
-     * partes e colocados em duas variáveis Double da instância Event
+     * seu conteúdo para os inserir em suas devidas variáveis Double.
+     * O texto recebido é separado em duas partes e colocado a latitude em sua
+     * variável Double
      *
-     * @param event Instância de Event que receberá Latitude e Longitude
-     *              em suas variáveis
      * @param latLng Latitude e Longitude em forma de texto
+     * @return Valor da latitude em Double
      * @author Felipe Savaris
-     * @since 11/12/2018
+     * @since 18/12/2018
      */
-    public void valLatitudeLongitude(Event event,
-                                     String latLng) {
+    public double valLatitude(String latLng) {
 
         //Processo de Formatação de texto
         latLng = latLng.replace("lat/lng: (", "");
@@ -31,23 +29,41 @@ public class EventTextValidator {
         latLng = latLng.replace(")", "");
 
         //Get Double Latitude from String
-        event.setLatitude(
-                Double.parseDouble(
-                        latLng.substring(
-                                0,
-                                latLng.indexOf(" ")
-                        )
+        return Double.parseDouble(
+                latLng.substring(
+                        0,
+                        latLng.indexOf(" ")
                 )
         );
+    }
+
+    /**
+     * Método responsável por receber uma String contendo a latitude
+     * e longitude do local selecionado no Maps e formatá-lo para separar
+     * seu conteúdo para os inserir em suas devidas variáveis Double.
+     * O texto recebido é separado em duas partes e colocado a longitude em sua
+     * variável Double
+     *
+     * @param latLng Latitude e Longitude em forma de texto
+     * @return Valor da Longitude em Double
+     * @author Felipe Savaris
+     * @since 18/12/2018
+     */
+    public double valLongitude(String latLng) {
+
+        //Processo de Formatação de texto
+        latLng = latLng.replace("lat/lng: (", "");
+        latLng = latLng.replace(",", " ");
+        latLng = latLng.replace(")", "");
+
         //Get Double Longitude from String
-        event.setLongitude(
-                Double.parseDouble(
-                        latLng.substring(
-                                latLng.lastIndexOf(" ") + 1,
-                                latLng.length()
-                        )
+        return Double.parseDouble(
+                latLng.substring(
+                        latLng.lastIndexOf(" ") + 1,
+                        latLng.length()
                 )
         );
+
     }
 
     /**
