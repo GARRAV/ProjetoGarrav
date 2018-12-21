@@ -12,7 +12,13 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 
+import java.lang.reflect.Type;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Logger;
@@ -49,6 +55,7 @@ public class RegisterEventActivity extends AppCompatActivity {
     private int yearD;
     private int hourD;
     private int minuteD;
+    private int secondD = 0;
 
     //Variáveis Address Endereço
     private String latLng;
@@ -275,6 +282,14 @@ public class RegisterEventActivity extends AppCompatActivity {
         };
     }
 
+    //Código teste, será redirecionado para outro local
+    JsonSerializer<Date> ser = new JsonSerializer<Date>() {
+        @Override
+        public JsonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext context) {
+            return src == null ? null : new JsonPrimitive(src.getTime());
+        }
+    };
+
     /**
      *
      * @param view Elemento utilizado para inicializar a ação
@@ -319,21 +334,24 @@ public class RegisterEventActivity extends AppCompatActivity {
             event.setLongitude(this.longitude);
             //Set Date & Time Event
             Calendar cal = Calendar.getInstance();
-            cal.set(yearD,
-                    monthD,
-                    dayD,
-                    hourD,
-                    minuteD
+            cal.set(
+                    this.yearD,
+                    this.monthD,
+                    this.dayD,
+                    this.hourD,
+                    this.minuteD,
+                    this.secondD
             );
-            Date date;
-            date = cal.getTime();
+            Date date = cal.getTime();
             event.setDateEvent(date);
 
             /*
             Inicio do Envio para servidor
              */
             //Conversão para Json
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(Date.class, ser)
+                    .create();
             String json = gson.toJson(event);
 
             //Ação Retrofit - Servidor
