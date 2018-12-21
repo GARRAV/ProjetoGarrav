@@ -2,6 +2,7 @@ package br.com.garrav.projetogarrav;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.location.Address;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -13,23 +14,20 @@ import android.widget.TimePicker;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
 
-import java.lang.reflect.Type;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Logger;
 
 import br.com.garrav.projetogarrav.model.Event;
 import br.com.garrav.projetogarrav.model.User;
+import br.com.garrav.projetogarrav.util.JsonUtil;
 import br.com.garrav.projetogarrav.util.LocationUtil;
 import br.com.garrav.projetogarrav.util.MessageActionUtil;
 import br.com.garrav.projetogarrav.util.RetrofitUtil;
 import br.com.garrav.projetogarrav.validation.EventTextValidator;
 import br.com.garrav.projetogarrav.ws.EventService;
+
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
@@ -57,11 +55,9 @@ public class RegisterEventActivity extends AppCompatActivity {
     private int minuteD;
     private int secondD = 0;
 
-    //Variáveis Address Endereço
-    private String latLng;
+    //Variáveis Coordenadas
     private double latitude;
     private double longitude;
-    private Address address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,41 +68,46 @@ public class RegisterEventActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Registro de Eventos");
 
-        //Get Coordinates
-        this.latLng = getIntent().getStringExtra("coordinates");
+        /*
+        Inicio Tratamento Coordenadas
+         */
 
+        //Get Intent Coordinates
+        //Variáveis Address Endereço
+        String latLng = getIntent().getStringExtra("coordinates");
         //Adapter Coordinates
         EventTextValidator etv = new EventTextValidator();
-
         //Latitude Adapter
-        this.latitude = etv.valLatitude(this.latLng);
+        this.latitude = etv.valLatitude(latLng);
         //Longitude Adapter
-        this.longitude = etv.valLongitude(this.latLng);
-
-        //Find Address
+        this.longitude = etv.valLongitude(latLng);
+        //Find Address by Coordinates
         LocationUtil lu = new LocationUtil();
-        address = lu.seekAddress(
+        Address address = lu.seekAddress(
                 this,
                 this.latitude,
                 this.longitude
         );
-
         //Init Address EditText
         this.etAddressEvent = findViewById(R.id.etAddressEvent);
-
         //Set EditText Address
         this.etAddressEvent.setText(
-                this.address.getAddressLine(0)
+                address.getAddressLine(0)
         );
+        /*
+        Fim Tratamento Coordenadas
+         */
 
-        //Init Time Date
-        this.etTimeEvent = findViewById(R.id.etTimeEvent);
+        /*
+        Inicio Tratamento Data
+        */
 
+        //Init DateEvent EditText
+        this.etDateEvent = findViewById(R.id.etDateEvent);
         /*
         Quando clicado no EditText etDateEvent, abrirá um calendário
         para a seleção de data do Evento
-         */
-        this.etDateEvent = findViewById(R.id.etDateEvent);
+        */
         this.etDateEvent.setOnClickListener(new View.OnClickListener() {
             /**
              * Método responsável por mostrar um calendário no dia atual
@@ -132,8 +133,6 @@ public class RegisterEventActivity extends AppCompatActivity {
                         mDateSetListener,
                         year, month, day
                 );
-                //Linha que altera a cor de fundo do calendário
-                /*dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.LTGRAY));*/
 
                 //Exibição do calendário
                 dialog.show();
@@ -176,6 +175,7 @@ public class RegisterEventActivity extends AppCompatActivity {
                 //Resultado do filtro
                 if(boo) {
 
+                    //Apaga Textos presentes no campo Hora
                     if(!etTimeEvent.getText().toString().isEmpty()) {
                         etTimeEvent.setText("");
                     }
@@ -193,16 +193,29 @@ public class RegisterEventActivity extends AppCompatActivity {
                 }
             }
         };
+        /*
+        Fim Tratamento Data
+         */
 
+        /*
+        Inicio Tratamento Hora
+         */
+
+        //Init Time Date
+        this.etTimeEvent = findViewById(R.id.etTimeEvent);
         /*
         Quando clicado no EditText etTimeEvent, abrirá um TimePicker
         para a seleção de horários do Evento
          */
         this.etTimeEvent.setOnClickListener(new View.OnClickListener() {
             /**
+             * Método responsável por exibir um relógio na hora atual
+             * para o usuário escolher um horário para o evento que
+             * está criando.
+             * A data precisa estar obrigatóriamente preenchida para
+             * usar o relógio
              *
-             *
-             * @param view
+             * @param view Elemento utilizado para inicializar a ação
              * @author Felipe Savaris
              * @since 17/12/2018
              */
@@ -236,7 +249,6 @@ public class RegisterEventActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
-
         /*
         Resultado da hora após selecionada pelo usuário, separada por hora,
         e minuto. Após resultado adiquirido, a hora passará por filtros para se
@@ -244,10 +256,14 @@ public class RegisterEventActivity extends AppCompatActivity {
          */
         this.mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
             /**
+             * Método responsável de ser executado logo após o usuário ter
+             * selecionado um horario para seu evento e fazer os devidos
+             * filtros dessa data e aprova-lá ou não para seu uso e
+             * exibição.
              *
-             * @param timePicker
-             * @param hour
-             * @param minute
+             * @param timePicker Variável que resgata a data do relógio gráfico
+             * @param hour Hora informado pelo usuário
+             * @param minute Minuto informado pelo usuário
              * @author Felipe Savaris
              * @since 17/12/2018
              */
@@ -277,18 +293,13 @@ public class RegisterEventActivity extends AppCompatActivity {
 
                     etTimeEvent.setText(time);
                 }
-
             }
         };
+        /*
+        Fim tratamento hora
+         */
     }
 
-    //Código teste, será redirecionado para outro local
-    JsonSerializer<Date> ser = new JsonSerializer<Date>() {
-        @Override
-        public JsonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext context) {
-            return src == null ? null : new JsonPrimitive(src.getTime());
-        }
-    };
 
     /**
      *
@@ -320,7 +331,7 @@ public class RegisterEventActivity extends AppCompatActivity {
         if(boo) {
 
             /*
-            Instância dos dados do Evento
+            Inicio dos Set's dos dados do Evento na instância
              */
             Event event = new Event();
             //Set Id_user
@@ -344,14 +355,18 @@ public class RegisterEventActivity extends AppCompatActivity {
             );
             Date date = cal.getTime();
             event.setDateEvent(date);
+            /*
+            Fim dos Set's dos dados do Evento na instância
+             */
 
             /*
             Inicio do Envio para servidor
              */
-            //Conversão para Json
+            //Conversão para Json + Serializer para Datas
             Gson gson = new GsonBuilder()
-                    .registerTypeAdapter(Date.class, ser)
+                    .registerTypeAdapter(Date.class, JsonUtil.DATE_SERIALIZER)
                     .create();
+            //JSON
             String json = gson.toJson(event);
 
             //Ação Retrofit - Servidor
@@ -373,11 +388,34 @@ public class RegisterEventActivity extends AppCompatActivity {
 
             //Métodos da Requisição da API
             es.postJsonEvent(requestBody).enqueue(new Callback<ResponseBody>() {
+                /**
+                 *
+                 * @param call
+                 * @param response
+                 */
                 @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                public void onResponse(Call<ResponseBody> call,
+                                       Response<ResponseBody> response) {
 
+                    MessageActionUtil.makeText(
+                            RegisterEventActivity.this,
+                            "Evento salvo com sucesso!"
+                    );
+
+                    //Mudança de Activity -> MapsEventsActivity
+                    Intent it = new Intent(
+                            RegisterEventActivity.this,
+                            MapsEventsActivity.class
+                    );
+                    it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(it);
                 }
 
+                /**
+                 *
+                 * @param call
+                 * @param t
+                 */
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     Logger.getLogger(t.getMessage());

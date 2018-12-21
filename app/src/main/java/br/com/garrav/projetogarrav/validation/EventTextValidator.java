@@ -4,7 +4,6 @@ import android.content.Context;
 
 import java.util.Calendar;
 
-import br.com.garrav.projetogarrav.model.Event;
 import br.com.garrav.projetogarrav.util.MessageActionUtil;
 
 public class EventTextValidator {
@@ -70,7 +69,7 @@ public class EventTextValidator {
      * Método responsável por verificar se a data informada pelo usuário é
      * válida ou não para o Evento. Os filtros de datas se referem ao passado,
      * ou seja, caso a data esteja em um dia anterior a data atual, o resultado
-     * será false para a aprovação da data
+     * será false para a reprovação da data
      *
      * @param context Contexto da atual activity em execução do android
      * @param day Dia informado pelo usuário
@@ -124,13 +123,23 @@ public class EventTextValidator {
     }
 
     /**
+     * Método Responsável por verificar a hora informada pelo usuário
+     * para criação de eventos e garantir que passe pelos devidos filtros
+     * para envio para servidor. Os filtros de horas se referem ao passado,
+     * presente e futuro, ou seja, caso a hora informada seja anterior ou
+     * igual a hora do dia atual, a hora será reprovada. Caso o Evento
+     * ocorrra na data atual que foi cadastrada, a hora para o evento
+     * deverá obrigatóriamente estar no minimo três horas adiantadas para
+     * aprovação da hora, caso contrário será reprovada.
+     * Os minutos não passam por avaliação.
      *
-     * @param context
-     * @param day
-     * @param month
-     * @param year
-     * @param hour
-     * @return
+     * @param context Contexto da atual activity em execução do android
+     * @param day Dia informado pelo usuário
+     * @param month Mês informado pelo usuário
+     * @param year Ano informado pelo usuário
+     * @param hour Hora informado pelo usuário
+     * @return Resultado da validação da Hora, se true a hora está valida
+     * se false, a hora está inválida
      * @author Felipe Savaris
      * @since 17/12/2018
      */
@@ -157,8 +166,8 @@ public class EventTextValidator {
             if(hour <= cal.get(Calendar.HOUR_OF_DAY)) {
                 MessageActionUtil.makeText(
                         context,
-                        "Evento de dia atual, não pode ser marcado para " +
-                                "a mesma hora"
+                        "Evento de dia atual não pode ter seu horário marcado para " +
+                                "a mesma hora ou antes!"
                 );
                 return false;
             }
@@ -169,7 +178,7 @@ public class EventTextValidator {
                 MessageActionUtil.makeText(
                         context,
                         "Evento de dia atual, deve ter pelo menos 3 horas " +
-                                "até o evento começar"
+                                "até o evento começar!"
                 );
                 return false;
             }
