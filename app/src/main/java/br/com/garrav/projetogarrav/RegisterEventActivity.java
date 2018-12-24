@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 
 import br.com.garrav.projetogarrav.model.Event;
 import br.com.garrav.projetogarrav.model.User;
-import br.com.garrav.projetogarrav.util.JsonUtil;
+import br.com.garrav.projetogarrav.util.GsonUtil;
 import br.com.garrav.projetogarrav.util.LocationUtil;
 import br.com.garrav.projetogarrav.util.MessageActionUtil;
 import br.com.garrav.projetogarrav.util.RetrofitUtil;
@@ -364,7 +364,7 @@ public class RegisterEventActivity extends AppCompatActivity {
              */
             //Conversão para Json + Serializer para Datas
             Gson gson = new GsonBuilder()
-                    .registerTypeAdapter(Date.class, JsonUtil.DATE_SERIALIZER)
+                    .registerTypeAdapter(Date.class, GsonUtil.DATE_SERIALIZER)
                     .create();
             //JSON
             String json = gson.toJson(event);

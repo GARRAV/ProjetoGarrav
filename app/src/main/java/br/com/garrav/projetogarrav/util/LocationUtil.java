@@ -21,7 +21,7 @@ public class LocationUtil {
      * @since 18/12/2018
      */
     public Address seekAddress(Context context,
-                                double latitude,
+                               double latitude,
                                double longitude) {
 
         //Variáveis

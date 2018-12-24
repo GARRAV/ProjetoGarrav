@@ -13,6 +13,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.garrav.projetogarrav.logic.EventData;
+import br.com.garrav.projetogarrav.model.Event;
 import br.com.garrav.projetogarrav.util.PermissionUtil;
 
 public class MapsFragment
@@ -22,6 +27,7 @@ public class MapsFragment
 
     private GoogleMap mMap;
     private final int REQUEST_PERMISSIONS_CODE = 128;
+    public static List<Event> listEvent = new ArrayList<>();
     public static boolean EVENT_REGISTER = false;
 
     //Declaração das implementação caso uso de gps
@@ -34,8 +40,8 @@ public class MapsFragment
         getMapAsync(this);
 
         //Futura Implementação
-        /*//Inicio do Teste
-        double latitude = 0;
+        //Inicio do Teste
+        /*double latitude = 0;
         double longitude = 0;
 
         this.locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -66,8 +72,8 @@ public class MapsFragment
 
         this.etAddressEvent.setText(
                 this.address.getAddressLine(0)
-        );
-        //Fim do código Teste*/
+        );*/
+        //Fim do código Teste
     }
 
 
@@ -111,16 +117,33 @@ public class MapsFragment
                 mMap.setMyLocationEnabled(true);
             }
 
+            /*
+            Comando para resgatar dados via servidor
+            será tentado jogar valor para EventData.java
+             */
+            EventData ed = new EventData();
+            ed.getEventsFromServer(getContext());
+
+            for(int i = 0; i < listEvent.size(); i++) {
+                Event event;
+
+                event = listEvent.get(i);
+
+                LatLng markerEvent = new LatLng(event.getLatitude(), event.getLongitude());
+                MarkerOptions marker = new MarkerOptions();
+                marker.position(markerEvent);
+                marker.title(event.getName());
+                mMap.addMarker(marker);
+            }
+
             // Adiciona um marcador na Unioeste de Toledo - PR
             LatLng unioesteLocation = new LatLng(-24.724407, -53.752796);
-
             MarkerOptions marker = new MarkerOptions();
             marker.position(unioesteLocation);
             marker.title("Localização da Unioeste - Toledo PR");
-
             mMap.addMarker(marker);
 
-            //Movimentação do mapa para a Unioeste
+            //Movimentação do mapa para a Unioeste + Zoom
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(unioesteLocation, 16.5f));
 
         } catch (SecurityException ex) {
