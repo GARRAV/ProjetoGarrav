@@ -27,12 +27,9 @@ import br.com.garrav.projetogarrav.util.MessageActionUtil;
 import br.com.garrav.projetogarrav.util.RetrofitUtil;
 import br.com.garrav.projetogarrav.validation.EventTextValidator;
 import br.com.garrav.projetogarrav.ws.EventService;
-
 import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -369,15 +366,10 @@ public class RegisterEventActivity extends AppCompatActivity {
             //JSON
             String json = gson.toJson(event);
 
-            //Ação Retrofit - Servidor
-            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
-
             //Definições Retrofit
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(RetrofitUtil.getUrlServer())
-                    .client(client)
+                    .client(RetrofitUtil.getClient())
                     .build();
 
             //Resgata o link que fará o service com a API

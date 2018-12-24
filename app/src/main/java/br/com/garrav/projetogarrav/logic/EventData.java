@@ -18,13 +18,10 @@ import br.com.garrav.projetogarrav.util.GsonUtil;
 import br.com.garrav.projetogarrav.util.MessageActionUtil;
 import br.com.garrav.projetogarrav.util.RetrofitUtil;
 import br.com.garrav.projetogarrav.ws.EventService;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EventData {
 
@@ -36,16 +33,11 @@ public class EventData {
      */
     public void getEventsFromServer(Context context) {
 
-        //Ação Retrofit - Servidor
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
-
         //Definições Retrofit
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(RetrofitUtil.getUrlServer())
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
+                .client(RetrofitUtil.getClient())
+                .addConverterFactory(RetrofitUtil.getConverterFactory())
                 .build();
 
         //Resgata o link que fará o service com a API
