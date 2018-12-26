@@ -59,14 +59,15 @@ public class EventData {
               * @since 24/12/2018
               */
             @Override
-            public void onResponse(@NonNull Call<JsonArray> call, @NonNull Response<JsonArray> response) {
+            public void onResponse(@NonNull Call<JsonArray> call,
+                                   @NonNull Response<JsonArray> response) {
 
                 //Gambiarra
                 assert response.body() != null;
                 String eventsString = response.body().toString();
                 Type listType = new TypeToken<List<Event>>(){}.getType();
 
-                MapsFragment.listEvent = getEventListFromJson(eventsString, listType);
+                MapsFragment.LIST_EVENT = getEventListFromJson(eventsString, listType);
             }
 
              /**
@@ -77,7 +78,8 @@ public class EventData {
               * @since 24/12/2018
               */
             @Override
-            public void onFailure(Call<JsonArray> call, Throwable t) {
+            public void onFailure(Call<JsonArray> call,
+                                  Throwable t) {
                 MessageActionUtil.makeText(
                         ctx,
                         t.getMessage()

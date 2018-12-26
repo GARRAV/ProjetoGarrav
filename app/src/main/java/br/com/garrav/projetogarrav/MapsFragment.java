@@ -27,7 +27,7 @@ public class MapsFragment
 
     private GoogleMap mMap;
     private final int REQUEST_PERMISSIONS_CODE = 128;
-    public static List<Event> listEvent = new ArrayList<>();
+    public static List<Event> LIST_EVENT = new ArrayList<>();
     public static boolean EVENT_REGISTER = false;
 
     //Declaração das implementação caso uso de gps
@@ -38,6 +38,13 @@ public class MapsFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getMapAsync(this);
+
+        /*
+        Comando para resgatar dados via servidor
+        será tentado jogar valor para EventData.java
+        */
+        EventData ed = new EventData();
+        ed.getEventsFromServer(getContext());
 
         //Futura Implementação
         //Inicio do Teste
@@ -117,17 +124,13 @@ public class MapsFragment
                 mMap.setMyLocationEnabled(true);
             }
 
-            /*
-            Comando para resgatar dados via servidor
-            será tentado jogar valor para EventData.java
-             */
-            EventData ed = new EventData();
-            ed.getEventsFromServer(getContext());
+            //Localização da Unioeste Toledo - PR
+            LatLng unioesteLocation = new LatLng(-24.724407, -53.752796);
 
-            for(int i = 0; i < listEvent.size(); i++) {
+            for(int i = 0; i < LIST_EVENT.size(); i++) {
                 Event event;
 
-                event = listEvent.get(i);
+                event = LIST_EVENT.get(i);
 
                 LatLng markerEvent = new LatLng(event.getLatitude(), event.getLongitude());
                 MarkerOptions marker = new MarkerOptions();
@@ -135,13 +138,6 @@ public class MapsFragment
                 marker.title(event.getName());
                 mMap.addMarker(marker);
             }
-
-            // Adiciona um marcador na Unioeste de Toledo - PR
-            LatLng unioesteLocation = new LatLng(-24.724407, -53.752796);
-            MarkerOptions marker = new MarkerOptions();
-            marker.position(unioesteLocation);
-            marker.title("Localização da Unioeste - Toledo PR");
-            mMap.addMarker(marker);
 
             //Movimentação do mapa para a Unioeste + Zoom
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(unioesteLocation, 16.5f));
