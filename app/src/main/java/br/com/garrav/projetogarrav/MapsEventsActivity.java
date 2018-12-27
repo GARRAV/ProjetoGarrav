@@ -2,6 +2,7 @@ package br.com.garrav.projetogarrav;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -9,15 +10,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import br.com.garrav.projetogarrav.model.Event;
 import br.com.garrav.projetogarrav.util.MessageActionUtil;
 
 public class MapsEventsActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        EventIteractorFragment.OnFragmentInteractionListener{
 
     private FragmentManager fragmentManager;
+    private static Fragment FRAG_EVENT_INTERACTOR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +50,13 @@ public class MapsEventsActivity extends AppCompatActivity
         FragmentTransaction transaction = this.fragmentManager.beginTransaction();
         transaction.add(R.id.flMapsContainer, new MapsFragment(), "MapsFragment");
         transaction.commitAllowingStateLoss();
+
+        //Init Fragment Event
+        FRAG_EVENT_INTERACTOR = this.fragmentManager.findFragmentById(R.id.fragEventInteractor);
+        FRAG_EVENT_INTERACTOR.getView().setVisibility(View.GONE);
+
+        //Instância do Fragment EventIteractorFragment
+        /*this.eventIteractorFragment = (EventIteractorFragment) fragmentManager.findFragmentById(R.id.fragEventInteractor);*/
     }
 
     @Override
@@ -55,9 +68,11 @@ public class MapsEventsActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+            //Fecha o Fragment caso aberto
+        } else if(FRAG_EVENT_INTERACTOR.getView().getVisibility() == View.VISIBLE) {
+            FRAG_EVENT_INTERACTOR.getView().setVisibility(View.GONE);
+
+        } else super.onBackPressed();
     }
 
     /**
@@ -128,5 +143,18 @@ public class MapsEventsActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Event event) {
+        Log.i("Event", event.getName());
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static Fragment getFragEventInteractor() {
+        return FRAG_EVENT_INTERACTOR;
     }
 }

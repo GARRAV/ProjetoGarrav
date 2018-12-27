@@ -3,14 +3,17 @@ package br.com.garrav.projetogarrav;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -23,7 +26,8 @@ import br.com.garrav.projetogarrav.util.PermissionUtil;
 public class MapsFragment
         extends SupportMapFragment
         implements OnMapReadyCallback,
-        GoogleMap.OnMapClickListener {
+        GoogleMap.OnMapClickListener,
+        GoogleMap.OnMarkerClickListener{
 
     private GoogleMap mMap;
     private final int REQUEST_PERMISSIONS_CODE = 128;
@@ -103,6 +107,7 @@ public class MapsFragment
             mMap = googleMap;
 
             mMap.setOnMapClickListener(this);
+            mMap.setOnMarkerClickListener(this);
 
             //Verifica se as permissões necessárias estão ativadas
             int permission = ContextCompat.checkSelfPermission(
@@ -166,5 +171,26 @@ public class MapsFragment
             startActivity(it);
             EVENT_REGISTER = false;
         }
+    }
+
+    /**
+     *
+     * @param marker
+     * @return
+     * @author Felipe Savaris
+     * @since 26/12/2018
+     */
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        String title = marker.getTitle();
+
+        Fragment frag = MapsEventsActivity.getFragEventInteractor();
+
+        EventIteractorFragment eif = new EventIteractorFragment();
+        eif.setTvEventName(frag.getView());
+
+        frag.getView().setVisibility(View.VISIBLE);
+
+        return true;
     }
 }
