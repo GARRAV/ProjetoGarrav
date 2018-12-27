@@ -1,5 +1,6 @@
 package br.com.garrav.projetogarrav;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -146,8 +147,8 @@ public class MapsEventsActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFragmentInteraction(Event event) {
-        Log.i("Event", event.getName());
+    public void onFragmentInteraction() {
+
     }
 
     /**

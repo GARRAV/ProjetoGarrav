@@ -140,7 +140,7 @@ public class MapsFragment
                 LatLng markerEvent = new LatLng(event.getLatitude(), event.getLongitude());
                 MarkerOptions marker = new MarkerOptions();
                 marker.position(markerEvent);
-                marker.title(event.getName());
+                marker.title("" + event.getId());
                 mMap.addMarker(marker);
             }
 
@@ -182,13 +182,29 @@ public class MapsFragment
      */
     @Override
     public boolean onMarkerClick(Marker marker) {
+        //Get Marker Title
         String title = marker.getTitle();
 
+        //Pega o evento correspondente ao Marker
+        Event event = null;
+        for(int i = 0; i < LIST_EVENT.size(); i++) {
+            if(LIST_EVENT.get(i).getId() == Long.parseLong(title)) {
+                event = LIST_EVENT.get(i);
+                break;
+            }
+        }
+
+        //Pega o Fragment
         Fragment frag = MapsEventsActivity.getFragEventInteractor();
 
+        //Envia os dados para o Fragment exibir
         EventIteractorFragment eif = new EventIteractorFragment();
-        eif.setTvEventName(frag.getView());
+        eif.setEventData(
+                frag.getView(),
+                event
+        );
 
+        //Manda o Fragment ser Exibido
         frag.getView().setVisibility(View.VISIBLE);
 
         return true;
