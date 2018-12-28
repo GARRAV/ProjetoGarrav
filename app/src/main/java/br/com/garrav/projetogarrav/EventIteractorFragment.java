@@ -1,7 +1,6 @@
 package br.com.garrav.projetogarrav;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,9 +9,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.text.SimpleDateFormat;
 
 import br.com.garrav.projetogarrav.model.Event;
+import br.com.garrav.projetogarrav.model.Event_User;
+import br.com.garrav.projetogarrav.model.User;
+import br.com.garrav.projetogarrav.util.MessageActionUtil;
+import br.com.garrav.projetogarrav.util.RetrofitUtil;
+import br.com.garrav.projetogarrav.ws.EventService;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class EventIteractorFragment extends Fragment {
 
@@ -21,6 +34,7 @@ public class EventIteractorFragment extends Fragment {
     private TextView tvEventName;
     private TextView tvDateEvent;
     private Button btConfirmEvent;
+    private static long id_event;
 
     public EventIteractorFragment() {
         // Required empty public constructor
@@ -45,14 +59,57 @@ public class EventIteractorFragment extends Fragment {
         //Listener Button Fragment
         this.btConfirmEvent = view.findViewById(R.id.btConfirmEvent);
         this.btConfirmEvent.setOnClickListener(new View.OnClickListener() {
+            /**
+             *
+             * @param view
+             * @author Felipe Savaris
+             * @since 27/12/2018
+             */
             @Override
             public void onClick(View view) {
-                //Temporário
-                Intent it = new Intent(
-                        getContext(),
-                        SupportiveFriendActivity.class
-                );
-                startActivity(it);
+
+                //Definições Retrofit
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(RetrofitUtil.getUrlServer())
+                        .client(RetrofitUtil.getClient())
+                        .build();
+
+                //Resgata o link que fará o service com a API
+                EventService es = retrofit.create(EventService.class);
+
+                Event_User eventUser = new Event_User();
+                eventUser.setId_user(User.getUniqueUser().getId());
+                eventUser.setId_event(id_event);
+
+                Gson gson = new Gson();
+
+                String json = gson.toJson(eventUser);
+
+                //Faz a conexão com a API
+                RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), json);
+
+                final Context ctx = getContext();
+
+                es.postEventPresence(requestBody).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        MessageActionUtil.makeText(
+                                ctx,
+                                "Sucessinho"
+                        );
+
+                        MapsEventsActivity.getFragEventInteractor().getView().setVisibility(View.INVISIBLE);
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        MessageActionUtil.makeText(
+                                ctx,
+                                t.getMessage()
+                        );
+                        MapsEventsActivity.getFragEventInteractor().getView().setVisibility(View.INVISIBLE);
+                    }
+                });
             }
         });
 
@@ -84,7 +141,7 @@ public class EventIteractorFragment extends Fragment {
      * @since 27/12/2018
      */
     public void setEventData(View view,
-                               Event event) {
+                             Event event) {
 
         //Init TextView's Fragment
         this.tvEventName = view.findViewById(R.id.tvEventName);
@@ -96,6 +153,8 @@ public class EventIteractorFragment extends Fragment {
         //Set Date Event - Formatada
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy - hh:MM");
         this.tvDateEvent.setText(sdf.format(event.getDateEvent()));
+
+        id_event = event.getId();
 
     }
 

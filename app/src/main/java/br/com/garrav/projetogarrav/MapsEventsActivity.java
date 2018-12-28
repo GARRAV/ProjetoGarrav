@@ -1,6 +1,5 @@
 package br.com.garrav.projetogarrav;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -16,7 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import br.com.garrav.projetogarrav.model.Event;
+import br.com.garrav.projetogarrav.model.User;
 import br.com.garrav.projetogarrav.util.MessageActionUtil;
 
 public class MapsEventsActivity extends AppCompatActivity
@@ -148,14 +147,14 @@ public class MapsEventsActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction() {
-
+        Log.i("FragEvent", "Fragment Active");
     }
 
     /**
      *
      * @return
      */
-    public static Fragment getFragEventInteractor() {
+    protected static Fragment getFragEventInteractor() {
         return FRAG_EVENT_INTERACTOR;
     }
 }
