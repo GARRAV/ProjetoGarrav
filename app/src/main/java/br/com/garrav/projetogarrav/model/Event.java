@@ -1,6 +1,7 @@
 package br.com.garrav.projetogarrav.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Event {
 
@@ -11,6 +12,10 @@ public class Event {
     private Date dateEvent;
     private double latitude;
     private double longitude;
+
+    //List Events
+    private static List<Event> uniqueListEvents;
+
 
     public long getId() {
         return id;
@@ -66,5 +71,14 @@ public class Event {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    //Actual List Events
+    public static List<Event> getUniqueListEvents() {
+        return uniqueListEvents;
+    }
+
+    public static void setUniqueListEvents(List<Event> uniqueListEvents) {
+        Event.uniqueListEvents = uniqueListEvents;
     }
 }

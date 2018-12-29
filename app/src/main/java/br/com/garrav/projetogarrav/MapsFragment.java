@@ -16,11 +16,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import br.com.garrav.projetogarrav.logic.EventData;
 import br.com.garrav.projetogarrav.model.Event;
+import br.com.garrav.projetogarrav.retrofitServerService.EventServerService;
 import br.com.garrav.projetogarrav.util.PermissionUtil;
 
 public class MapsFragment
@@ -31,7 +28,6 @@ public class MapsFragment
 
     private GoogleMap mMap;
     private final int REQUEST_PERMISSIONS_CODE = 128;
-    public static List<Event> LIST_EVENT = new ArrayList<>();
     public static boolean EVENT_REGISTER = false;
 
     //Declaração das implementação caso uso de gps
@@ -43,12 +39,8 @@ public class MapsFragment
         super.onCreate(savedInstanceState);
         getMapAsync(this);
 
-        /*
-        Comando para resgatar dados via servidor
-        será tentado jogar valor para EventData.java
-        */
-        EventData ed = new EventData();
-        ed.getEventsFromServer(getContext());
+        //Resgate de Lista de Eventos via Servidor
+        EventServerService.getEventsFromServer(getContext());
 
         //Futura Implementação
         //Inicio do Teste
@@ -132,10 +124,10 @@ public class MapsFragment
             //Localização da Unioeste Toledo - PR
             LatLng unioesteLocation = new LatLng(-24.724407, -53.752796);
 
-            for(int i = 0; i < LIST_EVENT.size(); i++) {
+            for(int i = 0; i < Event.getUniqueListEvents().size(); i++) {
                 Event event;
 
-                event = LIST_EVENT.get(i);
+                event = Event.getUniqueListEvents().get(i);
 
                 LatLng markerEvent = new LatLng(event.getLatitude(), event.getLongitude());
                 MarkerOptions marker = new MarkerOptions();
@@ -187,9 +179,9 @@ public class MapsFragment
 
         //Pega o evento correspondente ao Marker
         Event event = null;
-        for(int i = 0; i < LIST_EVENT.size(); i++) {
-            if(LIST_EVENT.get(i).getId() == Long.parseLong(title)) {
-                event = LIST_EVENT.get(i);
+        for(int i = 0; i < Event.getUniqueListEvents().size(); i++) {
+            if(Event.getUniqueListEvents().get(i).getId() == Long.parseLong(title)) {
+                event = Event.getUniqueListEvents().get(i);
                 break;
             }
         }

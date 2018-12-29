@@ -2,7 +2,6 @@ package br.com.garrav.projetogarrav;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Intent;
 import android.location.Address;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -12,28 +11,15 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Logger;
 
 import br.com.garrav.projetogarrav.model.Event;
 import br.com.garrav.projetogarrav.model.User;
-import br.com.garrav.projetogarrav.util.GsonUtil;
+import br.com.garrav.projetogarrav.retrofitServerService.EventServerService;
 import br.com.garrav.projetogarrav.util.LocationUtil;
 import br.com.garrav.projetogarrav.util.MessageActionUtil;
-import br.com.garrav.projetogarrav.util.RetrofitUtil;
 import br.com.garrav.projetogarrav.validation.EventTextValidator;
-import br.com.garrav.projetogarrav.ws.EventService;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class RegisterEventActivity extends AppCompatActivity {
 
@@ -356,63 +342,11 @@ public class RegisterEventActivity extends AppCompatActivity {
             Fim dos Set's dos dados do Evento na instância
              */
 
-            /*
-            Inicio do Envio para servidor
-             */
-            //Conversão para Json + Serializer para Datas
-            Gson gson = new GsonBuilder()
-                    .registerTypeAdapter(Date.class, GsonUtil.DATE_SERIALIZER)
-                    .create();
-            //JSON
-            String json = gson.toJson(event);
-
-            //Definições Retrofit
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(RetrofitUtil.getUrlServer())
-                    .client(RetrofitUtil.getClient())
-                    .build();
-
-            //Resgata o link que fará o service com a API
-            EventService es = retrofit.create(EventService.class);
-
-            //Corpo do JSON que irá ao servidor
-            RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), json);
-
-            //Métodos da Requisição da API
-            es.postJsonEvent(requestBody).enqueue(new Callback<ResponseBody>() {
-                /**
-                 *
-                 * @param call
-                 * @param response
-                 */
-                @Override
-                public void onResponse(Call<ResponseBody> call,
-                                       Response<ResponseBody> response) {
-
-                    MessageActionUtil.makeText(
-                            RegisterEventActivity.this,
-                            "Evento salvo com sucesso!"
-                    );
-
-                    //Mudança de Activity -> MapsEventsActivity
-                    Intent it = new Intent(
-                            RegisterEventActivity.this,
-                            MapsEventsActivity.class
-                    );
-                    it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(it);
-                }
-
-                /**
-                 *
-                 * @param call
-                 * @param t
-                 */
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Logger.getLogger(t.getMessage());
-                }
-            });
+            //Requisição Retrofit - POST
+            EventServerService.postEventRegisterToServer(
+                    this,
+                    event
+            );
         }
 
     }

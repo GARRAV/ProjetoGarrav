@@ -9,23 +9,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-
 import java.text.SimpleDateFormat;
 
 import br.com.garrav.projetogarrav.model.Event;
 import br.com.garrav.projetogarrav.model.Event_User;
 import br.com.garrav.projetogarrav.model.User;
-import br.com.garrav.projetogarrav.util.MessageActionUtil;
-import br.com.garrav.projetogarrav.util.RetrofitUtil;
-import br.com.garrav.projetogarrav.ws.EventService;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
+import br.com.garrav.projetogarrav.retrofitServerService.Event_UserServerService;
 
 public class EventIteractorFragment extends Fragment {
 
@@ -34,6 +23,8 @@ public class EventIteractorFragment extends Fragment {
     private TextView tvEventName;
     private TextView tvDateEvent;
     private Button btConfirmEvent;
+
+    //Id_Event
     private static long id_event;
 
     public EventIteractorFragment() {
@@ -68,48 +59,16 @@ public class EventIteractorFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                //Definições Retrofit
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(RetrofitUtil.getUrlServer())
-                        .client(RetrofitUtil.getClient())
-                        .build();
-
-                //Resgata o link que fará o service com a API
-                EventService es = retrofit.create(EventService.class);
-
+                //Set Event_User
                 Event_User eventUser = new Event_User();
                 eventUser.setId_user(User.getUniqueUser().getId());
                 eventUser.setId_event(id_event);
 
-                Gson gson = new Gson();
-
-                String json = gson.toJson(eventUser);
-
-                //Faz a conexão com a API
-                RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), json);
-
-                final Context ctx = getContext();
-
-                es.postEventPresence(requestBody).enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        MessageActionUtil.makeText(
-                                ctx,
-                                "Sucessinho"
-                        );
-
-                        MapsEventsActivity.getFragEventInteractor().getView().setVisibility(View.INVISIBLE);
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        MessageActionUtil.makeText(
-                                ctx,
-                                t.getMessage()
-                        );
-                        MapsEventsActivity.getFragEventInteractor().getView().setVisibility(View.INVISIBLE);
-                    }
-                });
+                //Requisição Retrofit - POST
+                Event_UserServerService.postEventUserPresenceToServer(
+                        getContext(),
+                        eventUser
+                );
             }
         });
 

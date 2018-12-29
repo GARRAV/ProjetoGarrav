@@ -15,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import br.com.garrav.projetogarrav.model.User;
 import br.com.garrav.projetogarrav.util.MessageActionUtil;
 
 public class MapsEventsActivity extends AppCompatActivity
@@ -54,9 +53,6 @@ public class MapsEventsActivity extends AppCompatActivity
         //Init Fragment Event
         FRAG_EVENT_INTERACTOR = this.fragmentManager.findFragmentById(R.id.fragEventInteractor);
         FRAG_EVENT_INTERACTOR.getView().setVisibility(View.GONE);
-
-        //Instância do Fragment EventIteractorFragment
-        /*this.eventIteractorFragment = (EventIteractorFragment) fragmentManager.findFragmentById(R.id.fragEventInteractor);*/
     }
 
     @Override
@@ -154,7 +150,7 @@ public class MapsEventsActivity extends AppCompatActivity
      *
      * @return
      */
-    protected static Fragment getFragEventInteractor() {
+    public static Fragment getFragEventInteractor() {
         return FRAG_EVENT_INTERACTOR;
     }
 }
