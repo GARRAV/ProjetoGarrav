@@ -17,7 +17,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import br.com.garrav.projetogarrav.model.Event;
-import br.com.garrav.projetogarrav.retrofitServerService.EventServerService;
 import br.com.garrav.projetogarrav.util.PermissionUtil;
 
 public class MapsFragment
@@ -38,9 +37,6 @@ public class MapsFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getMapAsync(this);
-
-        //Resgate de Lista de Eventos via Servidor
-        EventServerService.getEventsFromServer(getContext());
 
         //Futura Implementação
         //Inicio do Teste

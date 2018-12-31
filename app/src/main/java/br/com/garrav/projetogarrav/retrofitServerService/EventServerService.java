@@ -180,7 +180,7 @@ public class EventServerService {
      * @since 24/12/2018
      */
     private static <T>List<T> getEventListFromJson(String jsonString,
-                                            Type type) {
+                                                   Type type) {
 
         //GSON Builder
         Gson gson = new GsonBuilder()

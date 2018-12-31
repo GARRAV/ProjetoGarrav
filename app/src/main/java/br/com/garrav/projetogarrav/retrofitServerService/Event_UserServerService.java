@@ -4,12 +4,17 @@ import android.content.Context;
 import android.view.View;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 import br.com.garrav.projetogarrav.MapsEventsActivity;
 import br.com.garrav.projetogarrav.model.Event_User;
 import br.com.garrav.projetogarrav.util.MessageActionUtil;
 import br.com.garrav.projetogarrav.util.RetrofitUtil;
-import br.com.garrav.projetogarrav.ws.EventService;
+import br.com.garrav.projetogarrav.ws.Event_UserService;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -39,7 +44,7 @@ public class Event_UserServerService {
                 .build();
 
         //Resgata o link que fará o service com a API
-        EventService es = retrofit.create(EventService.class);
+        Event_UserService eus = retrofit.create(Event_UserService.class);
 
         Gson gson = new Gson();
         String json = gson.toJson(eventUser);
@@ -47,7 +52,7 @@ public class Event_UserServerService {
         //Faz a conexão com a API
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), json);
 
-        es.postEventPresence(requestBody).enqueue(new Callback<ResponseBody>() {
+        eus.postEventPresence(requestBody).enqueue(new Callback<ResponseBody>() {
             /**
              *
              * @param call
@@ -86,6 +91,91 @@ public class Event_UserServerService {
             }
         });
 
+    }
+
+    /**
+     *
+     * @param context
+     * @param id_user
+     * @author Felipe Savaris
+     * @since 31/12/2018
+     */
+    public static void getEventUserPresenceFromServer(final Context context,
+                                                      long id_user) {
+
+        //Definições Retrofit
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(RetrofitUtil.getUrlServer())
+                .client(RetrofitUtil.getClient())
+                .addConverterFactory(RetrofitUtil.getConverterFactory())
+                .build();
+
+        //Resgata o link que fará o service com a API
+        Event_UserService eus = retrofit.create(Event_UserService.class);
+
+        //Faz a conexão com a API
+        Call<JsonArray> callEventUserList
+                = eus.getJsonEventPresence(id_user);
+
+        //Métodos da requisição da API
+        callEventUserList.enqueue(new Callback<JsonArray>() {
+            /**
+             *
+             * @param call
+             * @param response
+             * @author Felipe Savaris
+             * @since 31/12/2018
+             */
+            @Override
+            public void onResponse(Call<JsonArray> call,
+                                   Response<JsonArray> response) {
+
+                String eventUsersString = response.body().toString();
+                Type listType = new TypeToken<List<Event_User>>(){}.getType();
+
+                List<Event_User> listTmp = getEventPresenceFromJson(
+                        eventUsersString,
+                        listType
+                );
+
+                Event_User.setUniqueListEvent_User(listTmp);
+
+            }
+
+            /**
+             *
+             * @param call
+             * @param t
+             * @author Felipe Savaris
+             * @since 31/12/2018
+             */
+            @Override
+            public void onFailure(Call<JsonArray> call,
+                                  Throwable t) {
+                MessageActionUtil.makeText(
+                        context,
+                        t.getMessage()
+                );
+            }
+        });
+    }
+
+    /**
+     *
+     * @param jsonString
+     * @param type
+     * @param <T>
+     * @return
+     * @author Felipe Savaris
+     * @since 31/12/2018
+     */
+    private static <T>List<T> getEventPresenceFromJson(String jsonString,
+                                                       Type type) {
+
+        //Gson
+        Gson gson = new Gson();
+
+        return gson.fromJson(jsonString, type);
     }
 
 }

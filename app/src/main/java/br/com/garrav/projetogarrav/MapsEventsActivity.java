@@ -15,6 +15,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import br.com.garrav.projetogarrav.model.User;
+import br.com.garrav.projetogarrav.retrofitServerService.EventServerService;
+import br.com.garrav.projetogarrav.retrofitServerService.Event_UserServerService;
 import br.com.garrav.projetogarrav.util.MessageActionUtil;
 
 public class MapsEventsActivity extends AppCompatActivity
@@ -43,6 +46,14 @@ public class MapsEventsActivity extends AppCompatActivity
         //Referência aos itens da barra lateral
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //Resgate de Lista de Eventos via Servidor para Google Maps
+        EventServerService.getEventsFromServer(this);
+        //Resgate de Lista de Eventos já cadastrado como Presente
+        Event_UserServerService.getEventUserPresenceFromServer(
+                this,
+                User.getUniqueUser().getId()
+        );
 
         //Instância do Fragment Google Maps
         this.fragmentManager = getSupportFragmentManager();
