@@ -69,6 +69,9 @@ public class EventIteractorFragment extends Fragment {
                         getContext(),
                         eventUser
                 );
+
+                //Reseta a Activity
+                getActivity().recreate();
             }
         });
 
@@ -102,9 +105,10 @@ public class EventIteractorFragment extends Fragment {
     public void setEventData(View view,
                              Event event) {
 
-        //Init TextView's Fragment
+        //Init TextView's and Button Fragment
         this.tvEventName = view.findViewById(R.id.tvEventName);
         this.tvDateEvent = view.findViewById(R.id.tvDateEvent);
+        this.btConfirmEvent = view.findViewById(R.id.btConfirmEvent);
 
         //Set Name Event
         this.tvEventName.setText(event.getName());
@@ -113,8 +117,31 @@ public class EventIteractorFragment extends Fragment {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy - hh:MM");
         this.tvDateEvent.setText(sdf.format(event.getDateEvent()));
 
-        id_event = event.getId();
+        for(int i = 0; i < Event_User.getUniqueListEvent_User().size(); i++) {
+            if(Event_User.getUniqueListEvent_User().get(i).getId_event()
+                    ==
+                    event.getId()
+                    &&
+                    Event_User.getUniqueListEvent_User().get(i).getId_user()
+                    ==
+                    User.getUniqueUser().getId()) {
 
+                //
+                this.btConfirmEvent.setEnabled(false);
+                this.btConfirmEvent.setClickable(false);
+                this.btConfirmEvent.setText("Confirmado");
+                break;
+
+            } else {
+                if(!this.btConfirmEvent.isEnabled()) {
+                    this.btConfirmEvent.setEnabled(true);
+                    this.btConfirmEvent.setClickable(true);
+                    this.btConfirmEvent.setText("Confirmar");
+                }
+            }
+        }
+
+        id_event = event.getId();
     }
 
     /**
