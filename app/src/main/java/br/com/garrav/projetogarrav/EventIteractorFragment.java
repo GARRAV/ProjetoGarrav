@@ -27,6 +27,7 @@ public class EventIteractorFragment extends Fragment {
     //Id_Event
     private static long id_event;
 
+    //Constructor
     public EventIteractorFragment() {
         // Required empty public constructor
     }
@@ -41,6 +42,7 @@ public class EventIteractorFragment extends Fragment {
                              ViewGroup container,
                              Bundle savedInstanceState) {
 
+        //Container
         final View view = inflater.inflate(
                 R.layout.fragment_event_iteractor,
                 container,
@@ -51,8 +53,10 @@ public class EventIteractorFragment extends Fragment {
         this.btConfirmEvent = view.findViewById(R.id.btConfirmEvent);
         this.btConfirmEvent.setOnClickListener(new View.OnClickListener() {
             /**
+             * Método responsável por interagir com o botão do
+             * fragment e realizar o cadastro de presença do evento
              *
-             * @param view
+             * @param view Elementos do XML
              * @author Felipe Savaris
              * @since 27/12/2018
              */
@@ -96,9 +100,13 @@ public class EventIteractorFragment extends Fragment {
     }
 
     /**
+     * Método responsável por iniciar os elementos do fragment
+     * e definir se o evento responsável pelo mesmo já está
+     * confirmado ou não. Também Insere os dados - Nome, Objetivo
+     * e Data Formatada
      *
-     * @param view
-     * @param event
+     * @param view Elementos do XML
+     * @param event Instância do Evento do Marcador
      * @author Felipe Savaris
      * @since 27/12/2018
      */
@@ -114,9 +122,10 @@ public class EventIteractorFragment extends Fragment {
         this.tvEventName.setText(event.getName());
 
         //Set Date Event - Formatada
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy - hh:MM");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy - HH:mm");
         this.tvDateEvent.setText(sdf.format(event.getDateEvent()));
 
+        //Verificador de presença já confirmada no evento
         for(int i = 0; i < Event_User.getUniqueListEvent_User().size(); i++) {
             if(Event_User.getUniqueListEvent_User().get(i).getId_event()
                     ==
@@ -126,7 +135,7 @@ public class EventIteractorFragment extends Fragment {
                     ==
                     User.getUniqueUser().getId()) {
 
-                //
+                //Se presente
                 this.btConfirmEvent.setEnabled(false);
                 this.btConfirmEvent.setClickable(false);
                 this.btConfirmEvent.setText("Confirmado");
@@ -141,10 +150,12 @@ public class EventIteractorFragment extends Fragment {
             }
         }
 
+        //Set id do Evento
         id_event = event.getId();
     }
 
     /**
+     * Interface de LOG
      *
      * @author Felipe Savaris
      * @since 27/12/2018

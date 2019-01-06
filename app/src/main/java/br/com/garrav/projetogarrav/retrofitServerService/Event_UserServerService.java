@@ -28,9 +28,11 @@ import retrofit2.Retrofit;
 public class Event_UserServerService {
 
     /**
+     * Método responsável por enviar uma requisição POST para o
+     * servidor e cadastrar uma nova presença
      *
-     * @param context
-     * @param eventUser
+     * @param context Contexto da atual activity em execução do android
+     * @param eventUser Instância da presença
      * @author Felipe Savaris
      * @since 29/12/2018
      */
@@ -54,9 +56,11 @@ public class Event_UserServerService {
 
         eus.postEventPresence(requestBody).enqueue(new Callback<ResponseBody>() {
             /**
+             * Método responsável por entregar a resposta do servidor
+             * para saber se a requisição foi bem sucedida
              *
-             * @param call
-             * @param response
+             * @param call Chamado da API do servidor
+             * @param response Resposta do Servidor
              * @author Felipe Savaris
              * @since 28/12/2018
              */
@@ -73,9 +77,12 @@ public class Event_UserServerService {
             }
 
             /**
+             * Método invocado se a conexão com o servidor não for bem
+             * sucedida, retornando uma mensagem de erro que mostra
+             * o que aconteceu para a conexão não ter sido feita
              *
-             * @param call
-             * @param t
+             * @param call Chamado da API do servidor
+             * @param t Erro ocorrido durante o chamado
              * @author Felipe Savaris
              * @since 28/12/2018
              */
@@ -94,9 +101,11 @@ public class Event_UserServerService {
     }
 
     /**
+     * Método responsável por enviar uma requisição GET para o
+     * servidor e retornar uma lista de Presença em eventos
      *
-     * @param context
-     * @param id_user
+     * @param context Contexto da atual activity em execução do android
+     * @param id_user ID do usuário a ser enviada como parâmetro
      * @author Felipe Savaris
      * @since 31/12/2018
      */
@@ -120,9 +129,11 @@ public class Event_UserServerService {
         //Métodos da requisição da API
         callEventUserList.enqueue(new Callback<JsonArray>() {
             /**
+             * Método responável por retornar uma lista de presenças
+             * advindas do servidor
              *
-             * @param call
-             * @param response
+             * @param call Chamado da API do servidor
+             * @param response Resposta do Servidor
              * @author Felipe Savaris
              * @since 31/12/2018
              */
@@ -130,22 +141,31 @@ public class Event_UserServerService {
             public void onResponse(Call<JsonArray> call,
                                    Response<JsonArray> response) {
 
+                assert response.body() != null;
+
+                //JSON
                 String eventUsersString = response.body().toString();
+                //Type Converter
                 Type listType = new TypeToken<List<Event_User>>(){}.getType();
 
+                //Lista de Presenças
                 List<Event_User> listTmp = getEventPresenceFromJson(
                         eventUsersString,
                         listType
                 );
 
+                //Set Lista de Presenças
                 Event_User.setUniqueListEvent_User(listTmp);
 
             }
 
             /**
+             * Método invocado se a conexão com o servidor não for bem
+             * sucedida, retornando uma mensagem de erro que mostra
+             * o que aconteceu para a conexão não ter sido feita
              *
-             * @param call
-             * @param t
+             * @param call Chamado da API do servidor
+             * @param t Erro ocorrido durante o chamado
              * @author Felipe Savaris
              * @since 31/12/2018
              */
@@ -161,11 +181,13 @@ public class Event_UserServerService {
     }
 
     /**
+     * Método responsável por converter um array advindo
+     * do servidor e torna-lô uma lista
      *
-     * @param jsonString
-     * @param type
-     * @param <T>
-     * @return
+     * @param jsonString JSON para conversão
+     * @param type Tipo de conversão
+     * @param <T> Generic
+     * @return Lista convertida
      * @author Felipe Savaris
      * @since 31/12/2018
      */

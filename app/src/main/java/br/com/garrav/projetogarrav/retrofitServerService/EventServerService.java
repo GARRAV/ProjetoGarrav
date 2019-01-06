@@ -32,8 +32,11 @@ import retrofit2.Retrofit;
 public class EventServerService {
 
     /**
+     * Método responsável por enviar uma requisição GET para o
+     * servidor e retornar uma lista de Eventos a partir da
+     * data atual
      *
-     * @param context
+     * @param context Contexto da atual activity em execução do android
      * @author Felipe Savaris
      * @since 24/12/2018
      */
@@ -56,9 +59,11 @@ public class EventServerService {
         //Métodos da Requisição da API
          callEventList.enqueue(new Callback<JsonArray>() {
              /**
+              * Método responsável por entregar a lista de eventos
+              * advindas do servidor
               *
-              * @param call
-              * @param response
+              * @param call Chamado da API do servidor
+              * @param response Resposta do Servidor
               * @author Felipe Savaris
               * @since 24/12/2018
               */
@@ -67,19 +72,26 @@ public class EventServerService {
                                    @NonNull Response<JsonArray> response) {
 
                 assert response.body() != null;
+
+                //JSON
                 String eventsString = response.body().toString();
+                //Type Converter
                 Type listType = new TypeToken<List<Event>>(){}.getType();
 
-                List listTmp = getEventListFromJson(eventsString, listType);
+                //Lista de Eventos
+                List<Event> listTmp = getEventListFromJson(eventsString, listType);
 
                 //Set Lista de Events
                 Event.setUniqueListEvents(listTmp);
             }
 
              /**
+              * Método invocado se a conexão com o servidor não for bem
+              * sucedida, retornando uma mensagem de erro que mostra
+              * o que aconteceu para a conexão não ter sido feita
               *
-              * @param call
-              * @param t
+              * @param call Chamado da API do servidor
+              * @param t Erro ocorrido durante o chamado
               * @author Felipe Savaris
               * @since 24/12/2018
               */
@@ -95,14 +107,16 @@ public class EventServerService {
     }
 
     /**
+     * Método responsável por enviar uma requisição POST para o
+     * servidor e cadastrar um novo evento
      *
-     * @param context
-     * @param event
+     * @param context Contexto da atual activity em execução do android
+     * @param event Instância do evento a ser cadastrada
      * @author Felipe Savaris
      * @since 29/12/2018
      */
     public static void postEventRegisterToServer(final Context context,
-                                               Event event) {
+                                                 Event event) {
 
         //Definições Retrofit
         Retrofit retrofit = new Retrofit.Builder()
@@ -127,9 +141,11 @@ public class EventServerService {
         //Métodos da Requisição da API
         es.postJsonEvent(requestBody).enqueue(new Callback<ResponseBody>() {
             /**
+             * Método responsável por entregar a resposta do servidor
+             * para saber se a requisição foi bem sucedida
              *
-             * @param call
-             * @param response
+             * @param call Chamado da API do servidor
+             * @param response Resposta do Servidor
              * @author Felipe Savaris
              * @since 13/12/2018
              */
@@ -152,15 +168,19 @@ public class EventServerService {
             }
 
             /**
+             * Método invocado se a conexão com o servidor não for bem
+             * sucedida, retornando uma mensagem de erro que mostra
+             * o que aconteceu para a conexão não ter sido feita
              *
-             * @param call
-             * @param t
+             * @param call Chamado da API do servidor
+             * @param t Erro ocorrido durante o chamado
              * @author Felipe Savaris
              * @since 13/12/2018
              */
             @Override
             public void onFailure(Call<ResponseBody> call,
                                   Throwable t) {
+
                 MessageActionUtil.makeText(
                         context,
                         "Não foi possivel cadastrar o evento: "
@@ -171,11 +191,13 @@ public class EventServerService {
     }
 
     /**
+     * Método responsável por converter um array advindo
+     * do servidor e torna-lô uma lista
      *
-     * @param jsonString
-     * @param type
-     * @param <T>
-     * @return
+     * @param jsonString JSON para conversão
+     * @param type Tipo de conversão
+     * @param <T> Generic
+     * @return Lista convertida
      * @author Felipe Savaris
      * @since 24/12/2018
      */

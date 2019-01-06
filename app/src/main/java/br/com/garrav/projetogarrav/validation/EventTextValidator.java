@@ -188,13 +188,19 @@ public class EventTextValidator {
     }
 
     /**
+     * Método responsável por verificar os dados informados
+     * informados pelo usuário para a criação de um novo evento
+     * a ser enviada para o servidor. Os filtros se referem a
+     * todos os campos estarem vazios, sete caracteres no minimo
+     * para o nome do evento e cinco caracteres para o objetivo
+     * do evento
      *
-     * @param context
-     * @param nameEvent
-     * @param dateEvent
-     * @param timeEvent
-     * @param objectiveEvent
-     * @return
+     * @param context Contexto da atual activity em execução do android
+     * @param nameEvent Nome do evento
+     * @param dateEvent Data do evento
+     * @param timeEvent Hora do evento
+     * @param objectiveEvent Objetivo do evento
+     * @return Resultado da validação
      * @author Felipe Savaris
      * @since 12/12/2018
      */

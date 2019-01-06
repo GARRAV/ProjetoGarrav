@@ -11,7 +11,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -83,47 +82,12 @@ public class MapsEventsActivity extends AppCompatActivity
     }
 
     /**
+     * Método responsável por invocar e responder a barra lateral
      *
-     * @param menu
+     * @param item Item selecionado da barra lateral
      * @author Felipe Savaris
      * @since 05/12/2018
-     * @return
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.maps_events, menu);
-        return true;
-    }
-
-    /**
-     *
-     * @param item
-     * @author Felipe Savaris
-     * @since 05/12/2018
-     * @return
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    /**.
-     *
-     * @param item
-     * @author Felipe Savaris
-     * @since 05/12/2018
-     * @return
+     * @return Boolean da barra lateral
      */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -135,7 +99,7 @@ public class MapsEventsActivity extends AppCompatActivity
         //Opções de seleção da barra lateral
         switch (id) {
             //Registro de eventos
-            case R.id.nav_register_event_my_location :
+            /*case R.id.nav_register_event_my_location :
 
                 MapsFragment.EVENT_REGISTER = true;
 
@@ -143,7 +107,7 @@ public class MapsEventsActivity extends AppCompatActivity
                 MessageActionUtil.makeText(
                         this,
                         "Selecione o local do evento"
-                );
+                );*/
         }
 
         //Fecha a barra lateral após item selecionado
@@ -158,8 +122,25 @@ public class MapsEventsActivity extends AppCompatActivity
     }
 
     /**
+     * Método responsável por ativar o Floating Action Button
      *
-     * @return
+     * @param view Elementos do XML
+     */
+    public void fabRegisterNewEvent(View view) {
+
+        MapsFragment.EVENT_REGISTER = true;
+
+        //Mensagem para criação de evento
+        MessageActionUtil.makeText(
+                this,
+                "Selecione o local do evento"
+        );
+    }
+
+    /**
+     * Método responsável por retornar o controle do Fragment
+     *
+     * @return Fragment para interação
      */
     public static Fragment getFragEventInteractor() {
         return FRAG_EVENT_INTERACTOR;

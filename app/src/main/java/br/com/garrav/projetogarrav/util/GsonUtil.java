@@ -15,11 +15,13 @@ public class GsonUtil {
 
     public static JsonSerializer<Date> DATE_SERIALIZER = new JsonSerializer<Date>() {
         /**
+         * Método responsável por Serializar a data para utilizar
+         * no JSON a ser enviado ao servidor
          *
-         * @param src
-         * @param typeOfSrc
-         * @param context
-         * @return
+         * @param src Data a ser convertida
+         * @param typeOfSrc Tipo de conversão
+         * @param context Contexto da conversão JSON
+         * @return Data serializada
          * @author Felipe Savaris
          * @since 21/12/2018
          */
@@ -34,12 +36,14 @@ public class GsonUtil {
 
     public static JsonDeserializer<Date> DATE_DESERIALIZAER = new JsonDeserializer<Date>() {
         /**
+         * Método responsável por Deserializar a data recebida
+         * no JSON enviado pelo servidor
          *
-         * @param json
-         * @param typeOfT
-         * @param context
-         * @return
-         * @throws JsonParseException
+         * @param json Json recebido pelo servidor
+         * @param typeOfT Tipo de conversão
+         * @param context Contexto da conversão JSON
+         * @return Data Deserializada
+         * @throws JsonParseException Erro acontecido durante execução
          * @author Felipe Savaris
          * @since 24/12/2018
          */

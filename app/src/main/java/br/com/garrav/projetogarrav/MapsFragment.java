@@ -141,8 +141,10 @@ public class MapsFragment
     }
 
     /**
+     * Método responsável por receber a latitude e longitude
+     * e levar para o cadastro de novos eventos
      *
-     * @param latLng
+     * @param latLng Latitude e Longitude
      * @author Felipe Savaris
      * @since 07/12/2018
      */
@@ -162,9 +164,12 @@ public class MapsFragment
     }
 
     /**
+     * Método responsável por interagir com o marcador do Maps
+     * e invocar o fragment para cadastro de presença. O método
+     * só será invocado quando clicado pelo usuário
      *
-     * @param marker
-     * @return
+     * @param marker Marcador do Maps selecionado
+     * @return Resultado do Click
      * @author Felipe Savaris
      * @since 26/12/2018
      */
