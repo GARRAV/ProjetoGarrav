@@ -1,13 +1,13 @@
 package br.com.garrav.projetogarrav;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
 import br.com.garrav.projetogarrav.model.User;
+import br.com.garrav.projetogarrav.retrofitServerService.UserServerService;
 import br.com.garrav.projetogarrav.validation.RegisterTextValidator;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -60,17 +60,8 @@ public class RegisterActivity extends AppCompatActivity {
             //Get Actual Date to Instance
             user.setDate_account(rtv.getActualDateToAccount());
 
-            /*
-            Testes
-             */
-
-            //Mudança de Activity -> MainActivity
-            Intent it = new Intent(
-                    this,
-                    MainActivity.class
-            );
-            it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(it);
+            //Send Data to Server
+            UserServerService.postLoginUserToServer(this, user);
 
         } else {
             //Destroy Instance
