@@ -1,11 +1,14 @@
 package br.com.garrav.projetogarrav.model;
 
+import java.util.Date;
+
 public class User {
 
     private long id;
     private String name;
     private String fic_name;
     private String email;
+    private Date date_account;
     private String password;
 
     //Actual User
@@ -41,6 +44,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Date getDate_account() {
+        return date_account;
+    }
+
+    public void setDate_account(Date date_account) {
+        this.date_account = date_account;
     }
 
     public String getPassword() {
