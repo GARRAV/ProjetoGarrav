@@ -77,8 +77,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Faz a interação do TextView tvRegisterUser da activity activity_main.xml
+     * que abrirá a activity activity_register.xml para cadastrar um novo
+     * usuário no sistema
      *
-     * @param view
+     * @param view Elemento utilizado para inicializar a ação
      * @author Felipe Savaris
      * @since 08/01/2019
      */

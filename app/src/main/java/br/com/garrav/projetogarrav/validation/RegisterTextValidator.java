@@ -12,10 +12,18 @@ import br.com.garrav.projetogarrav.util.MessageActionUtil;
 public class RegisterTextValidator {
 
     /**
+     * Método responsável por verificar os dados informados
+     * pelo Usuário para o cadastro de um novo Usuário a
+     * ser enviado para o servidor. Os filtros se referem
+     * a todos os campos vazios com exceção do Nome Fícticio,
+     * Email contendo '@' e ter no máximo 100 caracteres,
+     * Nome ter no mínimo 3 caracteres e no máximo 30,
+     * Nome Fícticio caso não vazio, ter no mínimo 3 caracteres
+     * e no máximo 30 e a senha ter no mínimo 6 caracteres
      *
-     * @param context
-     * @param user
-     * @return
+     * @param context Contexto da atual activity em execução do android
+     * @param user Instância de User para validação
+     * @return Resultado da Validação
      * @author Felipe Savaris
      * @since 08/01/2019
      */
@@ -114,9 +122,10 @@ public class RegisterTextValidator {
     }
 
     /**
+     * Método responsável por CRIPTOGRAFAR a senha para envio ao servidor
      *
-     * @param password
-     * @return
+     * @param password Senha não CRIPTOGRAFADA
+     * @return Senha CRIPTOGRAFADA
      * @author Felipe Savaris
      * @since 08/01/2019
      */
@@ -129,17 +138,16 @@ public class RegisterTextValidator {
     }
 
     /**
+     * Método responsável por retornar uma Date na data atual
      *
-     * @return
+     * @return Date na data atual
      * @author Felipe Savaris
      * @since 08/01/2019
      */
     public Date getActualDateToAccount() {
 
         //Actual Date
-        Date date = new Date();
-
-        return date;
+        return new Date();
     }
 
 }

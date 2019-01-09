@@ -24,8 +24,14 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     /**
+     * Faz a interação do Button btRegisterUser da activity activity_register.xml
+     * que valida os dados dos EditText's etEmail, etName, etFicName, etPassword e
+     * a partir desses dados após validado, é enviada uma instância User para o
+     * servidor guardar no banco de dados.
+     * Caso os textos não estejam válidos, o método sera encerrado, caso valido,
+     * será iniciado a requisição POST de cadastro do usuário para o servidor.
      *
-     * @param view
+     * @param view Elemento utilizado para inicializar a ação
      * @author Felipe Savaris
      * @since 08/01/2019
      */
