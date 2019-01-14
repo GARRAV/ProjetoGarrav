@@ -9,7 +9,9 @@ import android.widget.ListView;
 
 import br.com.garrav.projetogarrav.adapter.challenge.ListChallengeAdapter;
 import br.com.garrav.projetogarrav.model.Challenge;
+import br.com.garrav.projetogarrav.model.User;
 import br.com.garrav.projetogarrav.retrofitServerService.ChallengeServerService;
+import br.com.garrav.projetogarrav.retrofitServerService.Challenge_UserServerService;
 
 public class ChallengeActivity extends AppCompatActivity {
 
@@ -30,6 +32,12 @@ public class ChallengeActivity extends AppCompatActivity {
         this.progressDialog.setMessage("Carregando...");
         this.progressDialog.setCancelable(false);
         this.progressDialog.show();
+
+        //Get Static Checked List from Server
+        Challenge_UserServerService.getCheckedChallengeFromServer(
+                this,
+                User.getUniqueUser().getId()
+        );
 
         //Get List from Server
         ChallengeServerService.getDailyChallengeFromServer(

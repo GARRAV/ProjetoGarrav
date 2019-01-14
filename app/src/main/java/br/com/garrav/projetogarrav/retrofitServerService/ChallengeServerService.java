@@ -27,6 +27,7 @@ public class ChallengeServerService {
      *
      * @param context
      * @param progressDialog
+     * @param activity
      * @author Felipe Savaris
      * @since 13/01/2019
      */
