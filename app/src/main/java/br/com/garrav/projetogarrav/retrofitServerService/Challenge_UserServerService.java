@@ -25,9 +25,11 @@ import retrofit2.Retrofit;
 public class Challenge_UserServerService {
 
     /**
+     * Método responsável por enviar uma requisição GET para o servidor
+     * e retornar uma lista de desafios diários já checados pelo usuário
      *
-     * @param context
-     * @param id_user
+     * @param context Contexto da atual activity em execução do android
+     * @param id_user Id do usuário
      * @author Felipe Savaris
      * @since 14/01/2019
      */
@@ -51,9 +53,12 @@ public class Challenge_UserServerService {
         //Métodos da requisição da API
         callChallengeDoneList.enqueue(new Callback<JsonArray>() {
             /**
+             * Método responsável por retornar a resposta do servidor
+             * e entregar uma lista de desafios diários já checados
+             * pelo usuário
              *
-             * @param call
-             * @param response
+             * @param call Chamada da API no servidor
+             * @param response Resposta do servidor
              * @author Felipe Savaris
              * @since 14/01/2019
              */
@@ -79,9 +84,11 @@ public class Challenge_UserServerService {
             }
 
             /**
+             * Método invocado se a conexão da requisição falhar e
+             * retornando o erro ocorrido
              *
-             * @param call
-             * @param t
+             * @param call Chamado da API no servidor
+             * @param t Erro ocorrido
              * @author Felipe Savaris
              * @since 14/01/2019
              */
@@ -101,9 +108,11 @@ public class Challenge_UserServerService {
     }
 
     /**
+     * Método responsável por enviar uma requisição POST para o servidor
+     * e inserir no banco de dados uma nova checagem do usuário
      *
-     * @param context
-     * @param cu
+     * @param context Contexto da atual activity em execução do android
+     * @param cu Nova Instância de Challenge_User
      * @author Felipe Savaris
      * @since 14/01/2019
      */
@@ -131,9 +140,11 @@ public class Challenge_UserServerService {
         //Métodos da requisição da API
         cus.postCheckChallengeJson(requestBody).enqueue(new Callback<ResponseBody>() {
             /**
+             * Método responsável por retornar a resposta do servidor
+             * e informar se a requisição foi sucedida
              *
-             * @param call
-             * @param response
+             * @param call Chamado da API no servidor
+             * @param response Resposta do servidor
              * @author Felipe Savaris
              * @since 14/01/2019
              */
@@ -149,9 +160,11 @@ public class Challenge_UserServerService {
             }
 
             /**
+             * Método invocado se a conexão da requisição falhar e
+             * retornando o erro ocorrido
              *
-             * @param call
-             * @param t
+             * @param call Chamado da API no servidor
+             * @param t Erro ocorrido
              * @author Felipe Savaris
              * @since 14/01/2019
              */
@@ -170,10 +183,13 @@ public class Challenge_UserServerService {
     }
 
     /**
+     * Método responsável por enviar uma requisição DELETE para o servidor
+     * e deletar do banco de dados a checagem do desafio diário caso assim
+     * o usuário queira
      *
-     * @param context
-     * @param id_user
-     * @param id_challenge
+     * @param context Contexto da atual activity em execução do android
+     * @param id_user Id do usuário
+     * @param id_challenge Id do desafio selecionado
      * @author Felipe Savaris
      * @since 14/01/2019
      */
@@ -200,9 +216,11 @@ public class Challenge_UserServerService {
         //Métodos da requisição da API
         callDeleteCheckChallenge.enqueue(new Callback<ResponseBody>() {
             /**
+             * Método responsável por retornar a resposta do servidor
+             * e informar se a requisição foi bem sucedida
              *
-             * @param call
-             * @param response
+             * @param call Chamado da API no servidor
+             * @param response Resposta do servidor
              * @author Felipe Savaris
              * @since 14/01/2019
              */
@@ -219,9 +237,11 @@ public class Challenge_UserServerService {
             }
 
             /**
+             * Método invocado se a conexão da requisição falhar e
+             * retornando o erro ocorrido
              *
-             * @param call
-             * @param t
+             * @param call Chamado da API no servidor
+             * @param t Erro ocorrido
              * @author Felipe Savaris
              * @since 14/01/2019
              */
@@ -240,11 +260,13 @@ public class Challenge_UserServerService {
     }
 
     /**
+     * Método responsável por converter um array advindo
+     * do servidor e torna-lô uma lista
      *
-     * @param jsonString
-     * @param type
-     * @param <T>
-     * @return
+     * @param jsonString Json para conversão
+     * @param type Tipo de conversão
+     * @param <T> Generic
+     * @return Lista convertida
      * @author Felipe Savaris
      * @since 14/01/2019
      */

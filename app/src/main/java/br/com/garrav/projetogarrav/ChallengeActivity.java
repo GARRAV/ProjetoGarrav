@@ -48,6 +48,8 @@ public class ChallengeActivity extends AppCompatActivity {
     }
 
     /**
+     * Método responsável por carregar os dados dos desafios diários
+     * e coloca-los no ListView
      *
      * @author Felipe Savaris
      * @since 12/01/2019

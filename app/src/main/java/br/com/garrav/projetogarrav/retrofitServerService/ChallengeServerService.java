@@ -24,10 +24,13 @@ import retrofit2.Retrofit;
 public class ChallengeServerService {
 
     /**
+     * Método responsável por enviar uma requisição GET para o servidor
+     * e retornar uma lista de desafios diários. No fim da requisição,
+     * é invocado um comando para ativar o adapter da ListView.
      *
-     * @param context
-     * @param progressDialog
-     * @param activity
+     * @param context Contexto da atual activity em execução do android
+     * @param progressDialog Controle de ProgressDialog
+     * @param activity Instância de ChallengeActivity
      * @author Felipe Savaris
      * @since 13/01/2019
      */
@@ -52,9 +55,11 @@ public class ChallengeServerService {
         //Métodos da requisição da API
         callDailyChallengeList.enqueue(new Callback<JsonArray>() {
             /**
+             * Método responsável por retornar a resposta do servidor
+             * e entregar uma lista de desafios diários.
              *
-             * @param call
-             * @param response
+             * @param call Chamado da API no servidor
+             * @param response Resposta do Servidor
              * @author Felipe Savaris
              * @since 13/01/2019
              */
@@ -88,9 +93,11 @@ public class ChallengeServerService {
             }
 
             /**
+             * Método invocado se a conexão da requisição falhar
+             * e retornando o erro ocorrido
              *
-             * @param call
-             * @param t
+             * @param call Chamado da API no servidor
+             * @param t Erro duarante a execução
              * @author Felipe Savaris
              * @since 13/01/2019
              */
@@ -113,11 +120,13 @@ public class ChallengeServerService {
     }
 
     /**
+     * Método responsável por converter um array advindo
+     * do servidor e torna-lô uma lista
      *
-     * @param jsonString
-     * @param type
-     * @param <T>
-     * @return
+     * @param jsonString Json para conversão
+     * @param type Tipo de conversão
+     * @param <T> Generic
+     * @return Lista convertida
      * @author Felipe Savaris
      * @since 13/01/2019
      */

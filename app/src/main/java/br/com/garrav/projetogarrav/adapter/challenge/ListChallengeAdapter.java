@@ -97,8 +97,10 @@ public class ListChallengeAdapter extends BaseAdapter {
         //Interação CheckBox
         HOLDER.cbChallengeConcluded.setOnClickListener(new View.OnClickListener() {
             /**
+             * Método responsável para invocar a interação da CheckBox
+             * interagida
              *
-             * @param view
+             * @param view Elemento onde a CheckBox se encontra
              * @author Felipe Savaris
              * @since 14/01/2019
              */
@@ -156,8 +158,10 @@ public class ListChallengeAdapter extends BaseAdapter {
         //Interação TextView
         HOLDER.tvChallenge.setOnClickListener(new View.OnClickListener() {
             /**
+             * Método responsável por invocar a interação na TextView
+             * interagida
              *
-             * @param view
+             * @param view Elemento onde a TextView se encontra
              * @author Felipe Savaris
              * @since 14/01/2019
              */
@@ -201,8 +205,10 @@ public class ListChallengeAdapter extends BaseAdapter {
         //Interação View Caso fora da CheckBox e do TextView
         view.setOnClickListener(new View.OnClickListener() {
             /**
+             * Método responsável por invocar a interação na View
+             * interagida
              *
-             * @param view
+             * @param view Todo o elemento em si
              * @author Felipe Savaris
              * @since 14/01/2019
              */
