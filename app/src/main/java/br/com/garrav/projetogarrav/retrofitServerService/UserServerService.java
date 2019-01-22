@@ -5,17 +5,29 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.Date;
+
 import br.com.garrav.projetogarrav.AfterLoginActivity;
+import br.com.garrav.projetogarrav.MainActivity;
 import br.com.garrav.projetogarrav.model.User;
+import br.com.garrav.projetogarrav.util.GsonUtil;
 import br.com.garrav.projetogarrav.util.MessageActionUtil;
 import br.com.garrav.projetogarrav.util.RetrofitUtil;
 import br.com.garrav.projetogarrav.validation.LoginTextValidator;
 import br.com.garrav.projetogarrav.ws.UserService;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserServerService {
 
@@ -43,11 +55,16 @@ public class UserServerService {
                                               final ProgressBar pbLoginLoading,
                                               final LoginTextValidator ltv) {
 
+        //Gson Adaptado
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Date.class, GsonUtil.DATE_DESERIALIZAER)
+                .create();
+
         //Definições Retrofit
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(RetrofitUtil.getUrlServer())
                 .client(RetrofitUtil.getClient())
-                .addConverterFactory(RetrofitUtil.getConverterFactory())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
         //Resgata o link que fará o service com a API
@@ -164,6 +181,91 @@ public class UserServerService {
                 );
                 //Torna a ProgressBar Invisivel
                 pbLoginLoading.setVisibility(View.INVISIBLE);
+            }
+        });
+    }
+
+    /**
+     *
+     * @param CONTEXT
+     * @param user
+     * @author Felipe Savaris
+     * @since 08/01/2019
+     */
+    public static void postLoginUserToServer(final Context CONTEXT,
+                                             User user) {
+
+        //Definições Retrofit
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(RetrofitUtil.getUrlServer())
+                .client(RetrofitUtil.getClient())
+                .build();
+
+        //GSON + Serializer
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Date.class, GsonUtil.DATE_SERIALIZER)
+                .create();
+
+        //JSON
+        String json = gson.toJson(user);
+
+        //Resgata o link que fará o service com a API
+        UserService us = retrofit.create(UserService.class);
+
+        //Corpo do JSON que irá ao servidor
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), json);
+
+        //Métodos da requisição da API
+        us.postJsonLogin(requestBody).enqueue(new Callback<ResponseBody>() {
+            /**
+             *
+             * @param call
+             * @param response
+             * @author Felipe Savaris
+             * @since 08/01/2019
+             */
+            @Override
+            public void onResponse(Call<ResponseBody> call,
+                                   Response<ResponseBody> response) {
+
+                //Caso E-mail já cadastrado
+                if(response.body() == null) {
+                    MessageActionUtil.makeText(
+                            CONTEXT,
+                            "E-mail já cadatrado"
+                    );
+                } else {
+                    //Caso não Cadastrado
+                    MessageActionUtil.makeText(
+                            CONTEXT,
+                            "Cadastro efetuado com sucesso"
+                    );
+
+                    //Mudança de Activity -> MainActivity
+                    Intent it = new Intent(
+                            CONTEXT,
+                            MainActivity.class
+                    );
+                    it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    CONTEXT.startActivity(it);
+                }
+            }
+
+            /**
+             *
+             * @param call
+             * @param t
+             * @author Felipe Savaris
+             * @since 08/01/2019
+             */
+            @Override
+            public void onFailure(Call<ResponseBody> call,
+                                  Throwable t) {
+
+                MessageActionUtil.makeText(
+                        CONTEXT,
+                        t.getMessage()
+                );
             }
         });
     }

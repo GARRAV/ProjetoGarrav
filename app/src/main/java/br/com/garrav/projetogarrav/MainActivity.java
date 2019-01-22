@@ -1,5 +1,6 @@
 package br.com.garrav.projetogarrav;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -73,5 +74,25 @@ public class MainActivity extends AppCompatActivity {
                     ltv
             );
         }
+    }
+
+    /**
+     * Faz a interação do TextView tvRegisterUser da activity activity_main.xml
+     * que abrirá a activity activity_register.xml para cadastrar um novo
+     * usuário no sistema
+     *
+     * @param view Elemento utilizado para inicializar a ação
+     * @author Felipe Savaris
+     * @since 08/01/2019
+     */
+    public void tvRegisterUser(View view) {
+
+        //Mudança de Activity -> RegisterActivity
+        Intent it = new Intent(
+                this,
+                RegisterActivity.class
+        );
+        startActivity(it);
+
     }
 }
