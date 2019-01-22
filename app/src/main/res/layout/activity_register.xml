@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RegisterActivity">
+
+    <!-- Field E-mail -->
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="E-mail"
+        android:inputType="textEmailAddress"/>
+
+    <!-- Field Name -->
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etEmail"
+        android:hint="Nome do Usuário"
+        android:inputType="text"/>
+
+    <!-- Field FicName -->
+    <EditText
+        android:id="@+id/etFicName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etName"
+        android:hint="Nome Fícticio"
+        android:inputType="text"/>
+
+    <!-- Field Password -->
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etFicName"
+        android:hint="Senha"
+        android:inputType="textPassword"/>
+
+    <!-- Button Cadastro -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etPassword"
+        android:text="Cadastrar"
+        android:onClick="btRegisterUser"/>
+
+</RelativeLayout>
