@@ -98,16 +98,26 @@ public class MapsEventsActivity extends AppCompatActivity
 
         //Opções de seleção da barra lateral
         switch (id) {
-            //Registro de eventos
-            /*case R.id.nav_register_event_my_location :
+            //Lista de Presença em Eventos
+            case R.id.nav_event_presence :
+                System.out.println("Teste");
+                break;
 
-                MapsFragment.EVENT_REGISTER = true;
+            case R.id.nav_options :
+                System.out.println("Opções");
+                break;
 
-                //Mensagem teste
-                MessageActionUtil.makeText(
-                        this,
-                        "Selecione o local do evento"
-                );*/
+            case R.id.nav_report_problem :
+                System.out.println("Reportar um Problema");
+                break;
+
+            case R.id.nav_about :
+                System.out.println("Sobre");
+                break;
+
+            case R.id.nav_logout :
+                System.out.println("Sair");
+                break;
         }
 
         //Fecha a barra lateral após item selecionado
