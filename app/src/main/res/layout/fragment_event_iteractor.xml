@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".EventIteractorFragment"
+    android:background="@color/common_google_signin_btn_text_dark_default">
+
+    <TextView
+        android:id="@+id/tvEventName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Example"/>
+
+    <TextView
+        android:id="@+id/tvDateEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date Example"
+        android:layout_below="@id/tvEventName"/>
+
+    <Button
+        android:id="@+id/btConfirmEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDateEvent"
+        android:text="Confirmar" />
+
+</RelativeLayout>

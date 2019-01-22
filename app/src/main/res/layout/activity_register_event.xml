@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RegisterEventActivity">
+
+    <!-- EditText NameEvent -->
+    <EditText
+        android:id="@+id/etNameEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/NameEvent"
+        android:inputType="text"/>
+
+    <!-- EditText AddressEvent-->
+    <EditText
+        android:id="@+id/etAddressEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etNameEvent"
+        android:hint="@string/AddressEvent"
+        android:focusable="false"
+        android:inputType="text"/>
+
+    <!-- EditText Event's Date -->
+    <EditText
+        android:id="@+id/etDateEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etAddressEvent"
+        android:hint="@string/DateEvent"
+        android:focusable="false"
+        android:inputType="date"/>
+
+    <EditText
+        android:id="@+id/etTimeEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etDateEvent"
+        android:hint="@string/DateTime"
+        android:focusable="false"
+        android:inputType="time"/>
+
+    <!-- EditText ObjectiveEvent -->
+    <EditText
+        android:id="@+id/etObjectiveEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etTimeEvent"
+        android:hint="@string/ObjetiveEvent"
+        android:inputType="textMultiLine"/>
+
+    <!-- Button RegisterEvent -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etObjectiveEvent"
+        android:onClick="btRegisterEvent"
+        android:text="@string/btRegisterEvent"/>
+
+</RelativeLayout>

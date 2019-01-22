@@ -13,4 +13,16 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="MapsEvents">Eventos</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="SupportEvent">Evento de Apoio</string>
+    <string name="SocialEvent">Evento Social</string>
+    <string name="btRegisterEvent">Confirmar Evento</string>
+    <string name="NameEvent">Nome do Evento</string>
+    <string name="DateEvent">Data do Evento</string>
+    <string name="ObjetiveEvent">Objetivo do Evento</string>
+    <string name="AddressEvent">Endereço do Evento</string>
+    <string name="DateTime">Hora do Evento</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
