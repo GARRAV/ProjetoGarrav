@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".AfterLoginActivity"
+    tools:showIn="@layout/app_bar_after_login">
+
+    <!-- Button MapsEvents -->
+    <Button
+        android:id="@+id/btMapsEvents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="btMapsEvents"
+        android:hint="@string/MapsEvents"/>
+
+    <!-- Button Challenge -->
+    <Button
+        android:id="@+id/btChallenge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btMapsEvents"
+        android:onClick="btChallenge"
+        android:hint="@string/challenge"/>
+
+    <!-- Button SupportiveFriend -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btChallenge"
+        android:onClick="btSupportiveFriend"
+        android:hint="@string/SupportiveFriend"/>
+
+</RelativeLayout>
