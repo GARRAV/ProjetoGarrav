@@ -20,15 +20,19 @@ public class AfterLoginActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_after_login);
+
+        //Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Chamado barra lateral
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        //Referência aos itens da barra lateral
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
@@ -44,24 +48,62 @@ public class AfterLoginActivity extends AppCompatActivity
         }
     }
 
+    /**
+     *
+     * @param item
+     * @return
+     * @author Felipe Savaris
+     * @since 23/01/2019
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+
+        //Id da Opção Selecionada
         int id = item.getItemId();
+        //Generic Intent
+        Intent it;
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        switch (id) {
+            //Lista de Presença de Eventos
+            case R.id.nav_event_presence :
+                //Mudança de Activity -> EventPresenceListActivity
+                it = new Intent(
+                        this,
+                        EventPresenceListActivity.class
+                );
+                startActivity(it);
+                break;
 
-        } else if (id == R.id.nav_slideshow) {
+            //Configurações do App
+            case R.id.nav_options :
+                //Mudança de Activity -> OptionsActivity
+                it = new Intent(
+                        this,
+                        OptionsActivity.class
+                );
+                startActivity(it);
+                break;
 
-        } else if (id == R.id.nav_manage) {
+            //Reportar Problemas com o App
+            case R.id.nav_report_problem :
+                //Mudança de Activity -> ReportProblemActivity
+                it = new Intent(
+                        this,
+                        ReportProblemActivity.class
+                );
+                startActivity(it);
+                break;
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+            //Sobre
+            case R.id.nav_about :
+                //Mudança de Avtivity -> AboutActivity
+                it = new Intent(
+                        this,
+                        AboutActivity.class
+                );
+                startActivity(it);
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
