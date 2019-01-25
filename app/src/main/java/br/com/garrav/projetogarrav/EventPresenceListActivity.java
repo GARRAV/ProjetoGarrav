@@ -8,6 +8,7 @@ import android.widget.ListView;
 
 import java.util.List;
 
+import br.com.garrav.projetogarrav.adapter.event.ListEventPresenceAdapter;
 import br.com.garrav.projetogarrav.model.Event;
 import br.com.garrav.projetogarrav.model.Event_User;
 import br.com.garrav.projetogarrav.model.User;
@@ -63,6 +64,20 @@ public class EventPresenceListActivity extends AppCompatActivity {
      */
     public void loadEventPresenceList() {
 
+        //Adapter do ListView
+        ListEventPresenceAdapter adapter =
+                new ListEventPresenceAdapter(
+                        this,
+                        lstPresenceEvent
+                );
+
+        //Init ListView
+        this.lvEventList = findViewById(R.id.lvEventList);
+
+        //Set Adapter no ListView
+        this.lvEventList.setAdapter(adapter);
+
+        adapter.notifyDataSetChanged();
     }
 
     /**
