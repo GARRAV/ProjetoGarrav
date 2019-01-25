@@ -6,6 +6,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -34,6 +35,20 @@ public interface Event_UserService {
     @GET("/GarravWS/webresources/event_user/presence/{id_user}")
     Call<JsonArray> getJsonEventPresence(
             @Path("id_user") long id_user
+    );
+
+    /**
+     *
+     * @param id_user
+     * @param id_event
+     * @return
+     * @author Felipe Savaris
+     * @since 25/01/2019
+     */
+    @DELETE("/GarravWS/webresources/event_user/delete/{id_user}/{id_event}")
+    Call<ResponseBody> deleteJsonPresenceEvent(
+            @Path("id_user") long id_user,
+            @Path("id_event") long id_event
     );
 
 }

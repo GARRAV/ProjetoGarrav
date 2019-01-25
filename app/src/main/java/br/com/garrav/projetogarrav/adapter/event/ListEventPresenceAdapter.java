@@ -12,6 +12,8 @@ import java.util.List;
 
 import br.com.garrav.projetogarrav.R;
 import br.com.garrav.projetogarrav.model.Event;
+import br.com.garrav.projetogarrav.model.User;
+import br.com.garrav.projetogarrav.retrofitServerService.Event_UserServerService;
 import br.com.garrav.projetogarrav.util.LocationUtil;
 
 public class ListEventPresenceAdapter extends BaseAdapter {
@@ -100,9 +102,19 @@ public class ListEventPresenceAdapter extends BaseAdapter {
              */
             @Override
             public void onClick(View view) {
-                //Teste
+
+                //Set Button Disabled
                 HOLDER.btCancelEventPresence.setText("Cancelado");
                 HOLDER.btCancelEventPresence.setEnabled(false);
+
+                //Server Event Presence - DELETE
+                Event_UserServerService.deleteUserEventPresenceFromServer(
+                        context,
+                        User.getUniqueUser().getId(),
+                        EVENT.getId(),
+                        HOLDER.btCancelEventPresence
+                );
+
             }
         });
 

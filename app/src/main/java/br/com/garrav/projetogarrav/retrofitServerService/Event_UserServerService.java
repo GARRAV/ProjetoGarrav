@@ -2,6 +2,7 @@ package br.com.garrav.projetogarrav.retrofitServerService;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -178,6 +179,79 @@ public class Event_UserServerService {
                 );
             }
         });
+    }
+
+    /**
+     *
+     * @param CONTEXT
+     * @param id_user
+     * @param id_event
+     * @param CANCEL_BUTTON
+     * @author Felipe Savaris
+     * @since 25/01/2019
+     */
+    public static void deleteUserEventPresenceFromServer(final Context CONTEXT,
+                                                         long id_user,
+                                                         long id_event,
+                                                         final Button CANCEL_BUTTON) {
+
+        //Definições Retrofit
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(RetrofitUtil.getUrlServer())
+                .client(RetrofitUtil.getClient())
+                .build();
+
+        //Resgata o Link que fará a conexão com a API
+        Event_UserService eus = retrofit.create(Event_UserService.class);
+
+        //Faz a conexão com a API
+        Call<ResponseBody> callDeleteEventPresence
+                = eus.deleteJsonPresenceEvent(
+                        id_user,
+                        id_event
+        );
+
+        callDeleteEventPresence.enqueue(new Callback<ResponseBody>() {
+            /**
+             *
+             * @param call
+             * @param response
+             * @author Felipe Savaris
+             * @since 25/01/2019
+             */
+            @Override
+            public void onResponse(Call<ResponseBody> call,
+                                   Response<ResponseBody> response) {
+
+                MessageActionUtil.makeText(
+                        CONTEXT,
+                        "Presença Apagada com Sucesso!"
+                );
+
+            }
+
+            /**
+             *
+             * @param call
+             * @param t
+             * @author Felipe Savaris
+             * @since 25/01/2019
+             */
+            @Override
+            public void onFailure(Call<ResponseBody> call,
+                                  Throwable t) {
+
+                MessageActionUtil.makeText(
+                        CONTEXT,
+                        "Houve um erro ao deletar a presença: " + t.getMessage()
+                );
+
+                CANCEL_BUTTON.setText("Cancelar");
+                CANCEL_BUTTON.setEnabled(true);
+
+            }
+        });
+
     }
 
     /**
