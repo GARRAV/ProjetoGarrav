@@ -8,6 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface EventService {
 
@@ -33,4 +34,16 @@ public interface EventService {
      */
     @GET("/GarravWS/webresources/event/select")
     Call<JsonArray> getJsonEvent();
+
+    /**
+     *
+     * @param json
+     * @return
+     * @author Felipe Savaris
+     * @since 24/01/2019
+     */
+    @GET("/GarravWS/webresources/event/selectPresenceUser/{id_event}")
+    Call<JsonArray> getJsonPresenceEvent(
+            @Path("id_event") String json
+    );
 }

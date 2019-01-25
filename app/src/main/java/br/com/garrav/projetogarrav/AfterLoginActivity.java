@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import br.com.garrav.projetogarrav.model.User;
+import br.com.garrav.projetogarrav.retrofitServerService.Event_UserServerService;
 
 public class AfterLoginActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -35,6 +36,12 @@ public class AfterLoginActivity extends AppCompatActivity
         //Referência aos itens da barra lateral
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //Get Static Presence List Event_User from Server
+        Event_UserServerService.getEventUserPresenceFromServer(
+                this,
+                User.getUniqueUser().getId()
+        );
     }
 
     @Override
