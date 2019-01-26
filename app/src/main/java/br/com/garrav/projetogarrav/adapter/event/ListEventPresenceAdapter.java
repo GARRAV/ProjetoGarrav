@@ -12,6 +12,7 @@ import java.util.List;
 
 import br.com.garrav.projetogarrav.R;
 import br.com.garrav.projetogarrav.model.Event;
+import br.com.garrav.projetogarrav.model.Event_User;
 import br.com.garrav.projetogarrav.model.User;
 import br.com.garrav.projetogarrav.retrofitServerService.Event_UserServerService;
 import br.com.garrav.projetogarrav.util.LocationUtil;
@@ -114,6 +115,20 @@ public class ListEventPresenceAdapter extends BaseAdapter {
                         EVENT.getId(),
                         HOLDER.btCancelEventPresence
                 );
+
+                //Remove Presence List
+                for(int i = 0; i < Event_User.getUniqueListEvent_User().size(); i++) {
+                    Event_User eu = Event_User.getUniqueListEvent_User().get(i);
+
+                    if(eu.getId_user() == User.getUniqueUser().getId()
+                            &&
+                            eu.getId_event() == EVENT.getId()) {
+
+                        Event_User.getUniqueListEvent_User().remove(i);
+
+                        break;
+                    }
+                }
 
             }
         });

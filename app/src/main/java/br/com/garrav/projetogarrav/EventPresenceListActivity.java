@@ -4,7 +4,9 @@ import android.app.ProgressDialog;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class EventPresenceListActivity extends AppCompatActivity {
 
     private ListView lvEventList;
     private ProgressDialog progressDialog;
+    private TextView tvEmptyList;
     private List<Event> lstPresenceEvent;
 
     @Override
@@ -63,6 +66,21 @@ public class EventPresenceListActivity extends AppCompatActivity {
      * @since 24/01/2019
      */
     public void loadEventPresenceList() {
+
+        //Case Lista Vazia
+        if(lstPresenceEvent == null) {
+
+            //Init TextView
+            this.tvEmptyList = findViewById(R.id.tvEmptyList);
+
+            //Mensagem de Lista vazia - VISIBLE
+            if(!this.tvEmptyList.isShown()) {
+                this.tvEmptyList.setVisibility(View.VISIBLE);
+            }
+
+            //Exit Method
+            return;
+        }
 
         //Adapter do ListView
         ListEventPresenceAdapter adapter =
