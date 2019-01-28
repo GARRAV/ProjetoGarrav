@@ -56,9 +56,11 @@ public class AfterLoginActivity extends AppCompatActivity
     }
 
     /**
+     * Método responsável por fazer a interação com a barra lateral
+     * com os itens correspondentes.
      *
-     * @param item
-     * @return
+     * @param item Item selecionado da barra lateral
+     * @return Resultado da seleção da barra lateral
      * @author Felipe Savaris
      * @since 23/01/2019
      */
@@ -113,12 +115,14 @@ public class AfterLoginActivity extends AppCompatActivity
                 break;
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
     /**
+     * Método responsável por fazer a interação com o botão Challenge
+     * e abrir uma nova activity
      *
      * @param view Elemento utilizado para inicializar a ação
      * @author Felipe Savaris
@@ -136,6 +140,8 @@ public class AfterLoginActivity extends AppCompatActivity
     }
 
     /**
+     * Método responsável por fazer a interação com o botão SupportiveFriend
+     * e abrir uma nova activity
      *
      * @param view Elemento utilizado para inicializar a ação
      * @author Felipe Savaris
@@ -152,6 +158,8 @@ public class AfterLoginActivity extends AppCompatActivity
     }
 
     /**
+     * Método responsável por fazer a interação com o botão MapsEvents
+     * e abrir uma nova activity
      *
      * @param view Elemento utilizado para inicializar a ação
      * @author Felipe Savaris

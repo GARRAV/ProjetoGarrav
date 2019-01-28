@@ -194,11 +194,14 @@ public class EventServerService {
     }
 
     /**
+     * Método responsável por enviar uma requisição GET ao servidor
+     * e retornar uma List de eventos que o usuário já tenha sido
+     * registrado pelo usuário.
      *
-     * @param context
-     * @param lstPresenceUser
-     * @param instance
-     * @param dialog
+     * @param context Contexto da atual activity em execução do android
+     * @param lstPresenceUser Lista de Id's dos eventos do usuário
+     * @param instance Intância de {@link EventPresenceListActivity}
+     * @param dialog Dialog de Carregamento
      * @author Felipe Savaris
      * @since 24/01/2019
      */
@@ -228,9 +231,11 @@ public class EventServerService {
         //Métodos da requisição com a API
         callPresenceEventList.enqueue(new Callback<JsonArray>() {
             /**
+             * Método responsável por entregar a lista de eventos
+             * advindas do servidor e desligar o Dialog de carregamento
              *
-             * @param call
-             * @param response
+             * @param call Chamado da API do servidor
+             * @param response Resposta do Servidor
              * @author Felipe Savaris
              * @since 24/01/2019
              */
@@ -271,9 +276,12 @@ public class EventServerService {
             }
 
             /**
+             * Método invocado se a conexão com o servidor não for bem
+             * sucedida, retornando uma mensagem de erro que mostra
+             * o que aconteceu para a conexão não ter sido feita
              *
-             * @param call
-             * @param t
+             * @param call Chamado da API no servidor
+             * @param t Erro Ocorrido no durante o chamada
              * @author Felipe Savaris
              * @since 24/01/2019
              */

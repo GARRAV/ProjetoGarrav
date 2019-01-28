@@ -38,7 +38,7 @@ public class EventPresenceListActivity extends AppCompatActivity {
         this.progressDialog.setCancelable(false);
         this.progressDialog.show();
 
-        //Get Static Presence List Event_User from Server - Reforce
+        //Get Static Presence List Event_User from Server - Refresh
         Event_UserServerService.getEventUserPresenceFromServer(
                 this,
                 User.getUniqueUser().getId()
@@ -61,6 +61,10 @@ public class EventPresenceListActivity extends AppCompatActivity {
     }
 
     /**
+     * Métoto responsável por carregar o adapter do ListView e mostra-los
+     * na activity. Caso a lista do adapter seja null, é mostrado um
+     * TextView informando que não há eventos registrados como presente.
+     * Este Método é invocado em getPresenceEventFromServer
      *
      * @author Felipe Savaris
      * @since 24/01/2019
@@ -99,8 +103,10 @@ public class EventPresenceListActivity extends AppCompatActivity {
     }
 
     /**
+     * Método responsável por Setar uma lista de eventos que o usuário
+     * já esteja registrado como presente
      *
-     * @param lstPresenceEvent
+     * @param lstPresenceEvent Lista de eventos registrados como presente
      * @author Felipe Savaris
      * @since 24/01/2019
      */

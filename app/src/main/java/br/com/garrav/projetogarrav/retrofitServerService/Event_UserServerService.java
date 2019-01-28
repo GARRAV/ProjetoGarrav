@@ -182,11 +182,14 @@ public class Event_UserServerService {
     }
 
     /**
+     * Método responsável por enviar uma requisição {@link retrofit2.http.DELETE} para
+     * o servidor e Deletar a presença do {@link br.com.garrav.projetogarrav.model.User}
+     * do {@link br.com.garrav.projetogarrav.model.Event} do servidor
      *
-     * @param CONTEXT
-     * @param id_user
-     * @param id_event
-     * @param CANCEL_BUTTON
+     * @param CONTEXT Contexto da atual activity em execução do android
+     * @param id_user Id do usuário
+     * @param id_event Id do evento
+     * @param CANCEL_BUTTON {@link Button} da {@link View} da {@link android.widget.ListView}
      * @author Felipe Savaris
      * @since 25/01/2019
      */
@@ -213,9 +216,10 @@ public class Event_UserServerService {
 
         callDeleteEventPresence.enqueue(new Callback<ResponseBody>() {
             /**
+             * Método responsável por retornar a resposta do servidor.
              *
-             * @param call
-             * @param response
+             * @param call Chamado da API no servidor
+             * @param response Resposta do Servidor
              * @author Felipe Savaris
              * @since 25/01/2019
              */
@@ -231,9 +235,11 @@ public class Event_UserServerService {
             }
 
             /**
+             * Método invocado se a conexão da requisição falhar
+             * e retornando o erro ocorrido
              *
-             * @param call
-             * @param t
+             * @param call Chamado da API no servidor
+             * @param t Erro ocorrido durante o Chamado
              * @author Felipe Savaris
              * @since 25/01/2019
              */

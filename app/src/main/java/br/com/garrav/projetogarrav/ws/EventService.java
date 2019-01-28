@@ -27,8 +27,9 @@ public interface EventService {
     );
 
     /**
+     * Requisição GET que será feita com o servidor
      *
-     * @return
+     * @return JsonArray que será retornado ao dispositivo
      * @author Felipe Savaris
      * @since 24/12/2018
      */
@@ -36,9 +37,12 @@ public interface EventService {
     Call<JsonArray> getJsonEvent();
 
     /**
+     * Requisição GET que será feita com o servidor com os
+     * paramêtros informados pelo usuário e transformado em
+     * JSON
      *
-     * @param json
-     * @return
+     * @param json Json que será enviado para o servidor
+     * @return Link da API que será enviado ao servidor
      * @author Felipe Savaris
      * @since 24/01/2019
      */

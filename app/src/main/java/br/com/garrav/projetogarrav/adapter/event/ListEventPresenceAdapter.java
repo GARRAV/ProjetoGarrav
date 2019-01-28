@@ -96,8 +96,11 @@ public class ListEventPresenceAdapter extends BaseAdapter {
         //Interação Button
         HOLDER.btCancelEventPresence.setOnClickListener(new View.OnClickListener() {
             /**
+             * Método responsável por interagir com o {@link android.widget.Button}
+             * da View da ListView para apagar a presença de {@link User} do
+             * {@link Event}
              *
-             * @param view
+             * @param view Elementos do XML
              * @author Felipe Savaris
              * @since 25/01/2019
              */
