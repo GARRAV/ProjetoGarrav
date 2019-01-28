@@ -20,9 +20,10 @@
         android:layout_height="200dp"
         android:layout_below="@+id/tvMessageReportProblem"
         android:hint="@string/hintReportProblem"
-        android:inputType="textLongMessage"/>
+        android:inputType="textMultiLine"/>
 
     <Button
+        android:id="@+id/btSendProblem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etReportProblemText"

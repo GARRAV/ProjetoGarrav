@@ -4,17 +4,20 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.Date;
 
 import br.com.garrav.projetogarrav.model.Report;
 import br.com.garrav.projetogarrav.model.User;
+import br.com.garrav.projetogarrav.retrofitServerService.ReportServerService;
 import br.com.garrav.projetogarrav.validation.ReportProblemTextValidator;
 
 public class ReportProblemActivity extends AppCompatActivity {
 
     private EditText etReportProblemText;
+    private Button btSendProblem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +36,12 @@ public class ReportProblemActivity extends AppCompatActivity {
      */
     public void btSendProblem(View view) {
 
-        //Init EditText
+        //Init Button & EditText
+        this.btSendProblem = findViewById(R.id.btSendProblem);
         this.etReportProblemText = findViewById(R.id.etReportProblemText);
+
+        //Set Button Disabled
+        this.btSendProblem.setEnabled(false);
 
         //Init Report Instance
         Report report = new Report();
@@ -64,11 +71,20 @@ public class ReportProblemActivity extends AppCompatActivity {
             report.setId_user(User.getUniqueUser().getId());
 
             //Init Server Service
-
+            ReportServerService.postBugReportToServer(
+                    this,
+                    report,
+                    this.btSendProblem
+            );
 
         } else {
             //Destroy Instance
             report = null;
+
+            //Set Button Enabled
+            if(!btSendProblem.isEnabled()) {
+                btSendProblem.setEnabled(true);
+            }
         }
 
     }

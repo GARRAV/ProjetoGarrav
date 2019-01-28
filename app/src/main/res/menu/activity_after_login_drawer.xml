@@ -16,6 +16,7 @@
         <!-- Report Problem -->
         <item
             android:id="@+id/nav_report_problem"
+            android:icon="@drawable/ic_warning_black_24dp"
             android:title="@string/report_problem"/>
         <!-- About -->
         <item
