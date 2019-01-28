@@ -9,9 +9,12 @@ import retrofit2.http.POST;
 public interface ReportService {
 
     /**
+     * Requisição POST que será feita com o servidor com os paramêtros
+     * informados pelo usuário transformados em JSON
      *
-     * @param reportBody
-     * @return
+     * @param reportBody Instância de {@link br.com.garrav.projetogarrav.model.Report}
+     *                   em JSON
+     * @return Link da API que será feito com o servidor
      * @author Felipe Savaris
      * @since 28/01/2019
      */

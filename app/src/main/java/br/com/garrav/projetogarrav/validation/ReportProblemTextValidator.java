@@ -8,10 +8,14 @@ import br.com.garrav.projetogarrav.util.MessageActionUtil;
 public class ReportProblemTextValidator {
 
     /**
+     * Método responsável por validar os devidos filtros do
+     * texto de bug nos paramêtros para avaliar se está
+     * apto ou não
      *
-     * @param context
-     * @param report
-     * @return
+     * @param context Contexto da atual activity em execução do android
+     * @param report Instância de {@link Report}
+     * @return Retorno do resultado da validação de textos, se true aprovado
+     *         se false reprovado
      * @author Felipe Savaris
      * @since 28/01/2019
      */

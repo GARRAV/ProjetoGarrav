@@ -27,6 +27,16 @@ import retrofit2.Retrofit;
 
 public class ReportServerService {
 
+    /**
+     * Método responsável por enviar uma requisição POST para o
+     * servidor e registrar um novo {@link Report}
+     *
+     * @param CONTEXT Contexto da atual activity em execução do android
+     * @param report Instância de {@link Report}
+     * @param BUTTON_REPORT {@link Button} da activity em execução
+     * @author Felipe Savaris
+     * @since 28/01/2019
+     */
     public static void postBugReportToServer(final Context CONTEXT,
                                              Report report,
                                              final Button BUTTON_REPORT) {
@@ -54,9 +64,11 @@ public class ReportServerService {
         //Métodos da requisição da API
         rs.postReportJson(requestBody).enqueue(new Callback<ResponseBody>() {
             /**
+             * Método responsável por entregar a resposta do servidor
+             * para saber se a requisição foi bem sucedida
              *
-             * @param call
-             * @param response
+             * @param call Chamado da API do servidor
+             * @param response Resposta do Servidor
              * @author Felipe Savaris
              * @since 28/01/2019
              */
@@ -82,9 +94,12 @@ public class ReportServerService {
             }
 
             /**
+             * Método invocado se a conexão com o servidor não for bem
+             * sucedida, retornando uma mensagem de erro que mostra
+             * o que aconteceu para a conexão não ter sido feita
              *
-             * @param call
-             * @param t
+             * @param call Chamado da API do servidor
+             * @param t Erro ocorrido durante o chamado
              * @author Felipe Savaris
              * @since 28/01/2019
              */

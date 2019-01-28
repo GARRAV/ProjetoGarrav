@@ -29,8 +29,14 @@ public class ReportProblemActivity extends AppCompatActivity {
     }
 
     /**
+     * Método responsável por interagir com o Button e invocar
+     * o método que avaliará se o texto escrito pelo usuário
+     * está apto a ser enviado para o servidor. Caso o texto não
+     * esteja apto a ser enviado o método é encerrado, caso
+     * esteja, é adicionado um ID e uma data para o {@link Report}
+     * e chama o método reponsável por enviar dados para o servidor
      *
-     * @param view
+     * @param view Elemento utilizado para inicializar a ação
      * @author Felipe Savaris
      * @since 28/01/2019
      */
