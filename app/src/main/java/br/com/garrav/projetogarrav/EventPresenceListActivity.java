@@ -1,6 +1,7 @@
 package br.com.garrav.projetogarrav;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -58,6 +59,20 @@ public class EventPresenceListActivity extends AppCompatActivity {
                 progressDialog
         );
 
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        //Reinicio da activity -> AfterLoginActivity
+        Intent it = new Intent(
+                this,
+                AfterLoginActivity.class
+        );
+        it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(it);
+
+        super.onBackPressed();
     }
 
     /**
