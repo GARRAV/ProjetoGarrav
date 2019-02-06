@@ -1,4 +1,4 @@
-package br.com.garrav.projetogarrav.retrofitServerService;
+package br.com.garrav.projetogarrav.api;
 
 import android.content.Context;
 import android.view.View;

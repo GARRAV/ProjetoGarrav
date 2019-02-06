@@ -16,7 +16,7 @@ import java.util.Date;
 
 import br.com.garrav.projetogarrav.model.Event;
 import br.com.garrav.projetogarrav.model.User;
-import br.com.garrav.projetogarrav.retrofitServerService.EventServerService;
+import br.com.garrav.projetogarrav.api.EventServerService;
 import br.com.garrav.projetogarrav.util.LocationUtil;
 import br.com.garrav.projetogarrav.util.MessageActionUtil;
 import br.com.garrav.projetogarrav.validation.EventTextValidator;

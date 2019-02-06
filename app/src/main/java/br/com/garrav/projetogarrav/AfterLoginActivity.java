@@ -12,7 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import br.com.garrav.projetogarrav.model.User;
-import br.com.garrav.projetogarrav.retrofitServerService.Event_UserServerService;
+import br.com.garrav.projetogarrav.api.Event_UserServerService;
 
 public class AfterLoginActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

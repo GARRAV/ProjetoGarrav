@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
-import br.com.garrav.projetogarrav.retrofitServerService.UserServerService;
+import br.com.garrav.projetogarrav.api.UserServerService;
 import br.com.garrav.projetogarrav.validation.LoginTextValidator;
 
 public class MainActivity extends AppCompatActivity {

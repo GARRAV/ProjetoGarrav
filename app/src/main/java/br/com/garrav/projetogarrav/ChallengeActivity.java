@@ -10,8 +10,8 @@ import android.widget.ListView;
 import br.com.garrav.projetogarrav.adapter.challenge.ListChallengeAdapter;
 import br.com.garrav.projetogarrav.model.Challenge;
 import br.com.garrav.projetogarrav.model.User;
-import br.com.garrav.projetogarrav.retrofitServerService.ChallengeServerService;
-import br.com.garrav.projetogarrav.retrofitServerService.Challenge_UserServerService;
+import br.com.garrav.projetogarrav.api.ChallengeServerService;
+import br.com.garrav.projetogarrav.api.Challenge_UserServerService;
 
 public class ChallengeActivity extends AppCompatActivity {
 

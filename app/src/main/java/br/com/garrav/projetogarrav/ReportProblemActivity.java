@@ -11,7 +11,7 @@ import java.util.Date;
 
 import br.com.garrav.projetogarrav.model.Report;
 import br.com.garrav.projetogarrav.model.User;
-import br.com.garrav.projetogarrav.retrofitServerService.ReportServerService;
+import br.com.garrav.projetogarrav.api.ReportServerService;
 import br.com.garrav.projetogarrav.validation.ReportProblemTextValidator;
 
 public class ReportProblemActivity extends AppCompatActivity {

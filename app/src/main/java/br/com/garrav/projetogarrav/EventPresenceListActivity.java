@@ -15,8 +15,8 @@ import br.com.garrav.projetogarrav.adapter.event.ListEventPresenceAdapter;
 import br.com.garrav.projetogarrav.model.Event;
 import br.com.garrav.projetogarrav.model.Event_User;
 import br.com.garrav.projetogarrav.model.User;
-import br.com.garrav.projetogarrav.retrofitServerService.EventServerService;
-import br.com.garrav.projetogarrav.retrofitServerService.Event_UserServerService;
+import br.com.garrav.projetogarrav.api.EventServerService;
+import br.com.garrav.projetogarrav.api.Event_UserServerService;
 
 public class EventPresenceListActivity extends AppCompatActivity {
 

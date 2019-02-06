@@ -16,7 +16,7 @@ import br.com.garrav.projetogarrav.R;
 import br.com.garrav.projetogarrav.model.Event;
 import br.com.garrav.projetogarrav.model.Event_User;
 import br.com.garrav.projetogarrav.model.User;
-import br.com.garrav.projetogarrav.retrofitServerService.Event_UserServerService;
+import br.com.garrav.projetogarrav.api.Event_UserServerService;
 import br.com.garrav.projetogarrav.util.LocationUtil;
 
 public class ListEventPresenceAdapter extends BaseAdapter {

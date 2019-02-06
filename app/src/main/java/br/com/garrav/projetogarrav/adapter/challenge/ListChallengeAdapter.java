@@ -12,7 +12,7 @@ import br.com.garrav.projetogarrav.R;
 import br.com.garrav.projetogarrav.model.Challenge;
 import br.com.garrav.projetogarrav.model.Challenge_User;
 import br.com.garrav.projetogarrav.model.User;
-import br.com.garrav.projetogarrav.retrofitServerService.Challenge_UserServerService;
+import br.com.garrav.projetogarrav.api.Challenge_UserServerService;
 
 public class ListChallengeAdapter extends BaseAdapter {
 

@@ -12,8 +12,8 @@ import android.util.Log;
 import android.view.View;
 
 import br.com.garrav.projetogarrav.model.User;
-import br.com.garrav.projetogarrav.retrofitServerService.EventServerService;
-import br.com.garrav.projetogarrav.retrofitServerService.Event_UserServerService;
+import br.com.garrav.projetogarrav.api.EventServerService;
+import br.com.garrav.projetogarrav.api.Event_UserServerService;
 import br.com.garrav.projetogarrav.util.MessageActionUtil;
 
 public class MapsEventsActivity extends AppCompatActivity
