@@ -16,6 +16,7 @@ import br.com.garrav.projetogarrav.model.User;
 import br.com.garrav.projetogarrav.util.GsonUtil;
 import br.com.garrav.projetogarrav.util.MessageActionUtil;
 import br.com.garrav.projetogarrav.util.RetrofitUtil;
+import br.com.garrav.projetogarrav.util.pref.PrefUserUtil;
 import br.com.garrav.projetogarrav.validation.LoginTextValidator;
 import br.com.garrav.projetogarrav.ws.UserService;
 
@@ -86,7 +87,9 @@ public class UserServerService {
              * será encerrado, caso retorne uma instância, o hash senha da
              * instância será comparada com os dados inseridos no método invocador.
              * Se a senha for validada, o Login será feito, fazendo set de User
-             * estático, caso não validada, o método será encerrado
+             * estático, caso não validada, o método será encerrado.
+             * Se validado, a instância de {@link User} será salva no
+             * {@link android.content.SharedPreferences}
              *
              * @param call Chamado da API do servidor
              * @param response Resposta do Servidor
@@ -149,6 +152,12 @@ public class UserServerService {
                                 AfterLoginActivity.class
                         );
                         context.startActivity(it);
+
+                        //Save User in SharedPreferences
+                        PrefUserUtil.saveUserSharedPreferences(
+                                context,
+                                user
+                        );
 
                     }
                 } else {

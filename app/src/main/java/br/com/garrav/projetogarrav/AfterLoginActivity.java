@@ -113,6 +113,17 @@ public class AfterLoginActivity extends AppCompatActivity
                 );
                 startActivity(it);
                 break;
+
+            //Sair
+            case R.id.nav_logout :
+                //Mudança de Activity -> MainActivity
+                it = new Intent(
+                        this,
+                        MainActivity.class
+                );
+                it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(it);
+                break;
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

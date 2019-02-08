@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import br.com.garrav.projetogarrav.api.UserServerService;
+import br.com.garrav.projetogarrav.model.User;
+import br.com.garrav.projetogarrav.util.pref.PrefUserUtil;
 import br.com.garrav.projetogarrav.validation.LoginTextValidator;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,6 +27,27 @@ public class MainActivity extends AppCompatActivity {
         //Retira a ActionBar
         ActionBar ab = getSupportActionBar();
         ab.hide();
+
+        //Verifica se já existe User no SharedPreferences e o resgata
+        User user = PrefUserUtil.getUserSharedPreferences(this);
+
+        //Se não vazio -> Login Automático
+        if(user.getEmail() != null) {
+
+            //Set Unique User
+            User.setUniqueUser(user);
+
+            //Mudança de Activity -> AfterLoginActivity
+            Intent it = new Intent(
+                    this,
+                    AfterLoginActivity.class
+            );
+            it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(it);
+        } else {
+            //Destroy Instance
+            user = null;
+        }
     }
 
     /**
@@ -73,6 +96,10 @@ public class MainActivity extends AppCompatActivity {
                     this.pbLoginLoading,
                     ltv
             );
+
+            //Deixa os EditText's Vazios
+            this.tvLoginEmail.setText("");
+            this.tvLoginPassword.setText("");
         }
     }
 
