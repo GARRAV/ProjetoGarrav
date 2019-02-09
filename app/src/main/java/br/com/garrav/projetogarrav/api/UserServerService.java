@@ -151,6 +151,7 @@ public class UserServerService {
                                 context,
                                 AfterLoginActivity.class
                         );
+                        it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         context.startActivity(it);
 
                         //Save User in SharedPreferences

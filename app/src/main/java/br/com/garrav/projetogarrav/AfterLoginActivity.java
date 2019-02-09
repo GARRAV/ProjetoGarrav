@@ -51,8 +51,11 @@ public class AfterLoginActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if(User.getUniqueUser() != null) User.setUniqueUser(null);
-            super.onBackPressed();
+            //Minimiza a Aplicação
+            Intent it = new Intent(Intent.ACTION_MAIN);
+            it.addCategory(Intent.CATEGORY_HOME);
+            it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(it);
         }
     }
 
