@@ -70,6 +70,8 @@ public class PrefUserUtil {
      *
      * @param context Contém o getSharedPreferences
      * @return Instância de {@link User}
+     * @author Felipe Savaris
+     * @since 08/02/2019
      */
     public static User getUserSharedPreferences(Context context) {
 
@@ -124,6 +126,25 @@ public class PrefUserUtil {
         user.setDate_account(date);
 
         return user;
+    }
+
+    /**
+     * Método responsável por apagar a Instância de {@link User} do
+     * {@link android.content.SharedPreferences}. Método usado para
+     * quando o Usuário for realizar o Log-Off
+     *
+     * @param context Contém o getSharedPreferences
+     * @author Felipe Savaris
+     * @since 08/02/2019
+     */
+    public static void clearUserSharedPreferences(Context context) {
+
+        //Erase User from SharedPreferences
+        PrefData.clearUserSharedPreferences(
+                context,
+                PrefKeysUtil.KEY_USER
+        );
+
     }
 
 }

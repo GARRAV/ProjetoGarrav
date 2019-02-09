@@ -120,6 +120,34 @@ class PrefData {
     }
 
     /**
+     * Método responsável por apagar valores de chaves
+     * do {@link SharedPreferences}
+     *
+     * @param context Contém o getSharedPreferences
+     * @param prefKey Chave do {@link SharedPreferences}
+     * @author Felipe Savaris
+     * @since 08/02/2019
+     */
+    static void clearUserSharedPreferences(Context context,
+                                           String prefKey) {
+
+        //Get SharedPreferences
+        SharedPreferences pref = managerSharedPreferencesData(
+                context,
+                prefKey
+        );
+
+        //Faz o SharedPreferences selecionado Editavel
+        SharedPreferences.Editor ed = pref.edit();
+
+        //Clear Key
+        ed.clear();
+        //Apply SharedPreferences
+        ed.apply();
+
+    }
+
+    /**
      * Método responsável por resgatar o {@link SharedPreferences} de
      * acordo com a chave informada
      *

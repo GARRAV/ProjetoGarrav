@@ -13,6 +13,7 @@ import android.view.View;
 
 import br.com.garrav.projetogarrav.model.User;
 import br.com.garrav.projetogarrav.api.Event_UserServerService;
+import br.com.garrav.projetogarrav.util.pref.PrefUserUtil;
 
 public class AfterLoginActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -123,6 +124,11 @@ public class AfterLoginActivity extends AppCompatActivity
                 );
                 it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(it);
+
+                //Erase User From SharedPreferences and Static Attribute
+                User.setUniqueUser(null);
+                PrefUserUtil.clearUserSharedPreferences(this);
+
                 break;
         }
 

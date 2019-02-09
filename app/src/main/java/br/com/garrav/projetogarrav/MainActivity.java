@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 
 import br.com.garrav.projetogarrav.api.UserServerService;
 import br.com.garrav.projetogarrav.model.User;
+import br.com.garrav.projetogarrav.util.InternetUtil;
 import br.com.garrav.projetogarrav.util.pref.PrefUserUtil;
 import br.com.garrav.projetogarrav.validation.LoginTextValidator;
 
@@ -27,6 +28,18 @@ public class MainActivity extends AppCompatActivity {
         //Retira a ActionBar
         ActionBar ab = getSupportActionBar();
         ab.hide();
+
+        //Verifica Se há conexão com a Internet
+        if(!InternetUtil.isConnected(this)) {
+            /*
+            Apaga a Chave de User no SharedPreferences caso
+            não haja Internet Disponivel
+             */
+            PrefUserUtil.clearUserSharedPreferences(this);
+
+            //Fecha o onCreate()
+            return;
+        }
 
         //Verifica se já existe User no SharedPreferences e o resgata
         User user = PrefUserUtil.getUserSharedPreferences(this);
