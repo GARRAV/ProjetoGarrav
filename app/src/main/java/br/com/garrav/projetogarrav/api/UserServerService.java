@@ -3,6 +3,8 @@ package br.com.garrav.projetogarrav.api;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
@@ -43,17 +45,19 @@ public class UserServerService {
      * os métodos internos
      *
      * @param context Contexto da activity atual
-     * @param email E-mail enviado pelo Usuário
-     * @param password Senha enviada pelo Usuário
+     * @param tvLoginEmail E-mail enviado pelo Usuário
+     * @param tvLoginPassword Senha enviada pelo Usuário
      * @param pbLoginLoading Progress Bar da Activity
+     * @param btLogin Button da Activity
      * @param ltv Validador de texto - Usuário
      * @author Felipe Savaris
      * @since 29/12/2018
      */
     public static void getLoginUserFromServer(final Context context,
-                                              final String email,
-                                              final String password,
+                                              final EditText tvLoginEmail,
+                                              final EditText tvLoginPassword,
                                               final ProgressBar pbLoginLoading,
+                                              final Button btLogin,
                                               final LoginTextValidator ltv) {
 
         //Gson Adaptado
@@ -74,7 +78,7 @@ public class UserServerService {
         //Faz a conexão com a API
         Call<User> callUserLogin =
                 us.getJsonLogin(
-                        email
+                        tvLoginEmail.getText().toString()
                 );
 
         //Métodos da Requisição da API
@@ -89,7 +93,9 @@ public class UserServerService {
              * Se a senha for validada, o Login será feito, fazendo set de User
              * estático, caso não validada, o método será encerrado.
              * Se validado, a instância de {@link User} será salva no
-             * {@link android.content.SharedPreferences}
+             * {@link android.content.SharedPreferences}.
+             * Assim que dados validados, serão restaurados os elementos da activity
+             * caso true ou false
              *
              * @param call Chamado da API do servidor
              * @param response Resposta do Servidor
@@ -114,7 +120,7 @@ public class UserServerService {
                     //Hash Password Validator
                     boolean val = ltv.valHashPassword(
                             context,
-                            password,
+                            tvLoginPassword.getText().toString(),
                             user.getPassword()
                     );
 
@@ -131,10 +137,20 @@ public class UserServerService {
                         );
                         //Torna a ProgressBar Invisivel
                         pbLoginLoading.setVisibility(View.INVISIBLE);
+                        //Enable Button
+                        btLogin.setEnabled(true);
+                        btLogin.setClickable(true);
+                        //Deixa os EditText's Vazios
+                        tvLoginEmail.setText("");
+                        tvLoginPassword.setText("");
 
                         return;
 
                     } else {
+
+                        /*
+                        Inicio do Processo de Login - Save
+                         */
 
                         //Set User servidor para User estático
                         User.setUniqueUser(user);
@@ -145,6 +161,18 @@ public class UserServerService {
 
                         //Torna a ProgressBar Invisivel
                         pbLoginLoading.setVisibility(View.INVISIBLE);
+                        //Enable Button
+                        btLogin.setEnabled(true);
+                        btLogin.setClickable(true);
+                        //Deixa os EditText's Vazios
+                        tvLoginEmail.setText("");
+                        tvLoginPassword.setText("");
+
+                        //Save User in SharedPreferences
+                        PrefUserUtil.saveUserSharedPreferences(
+                                context,
+                                user
+                        );
 
                         //Mudança de Activity -> AfterLoginActivity
                         Intent it = new Intent(
@@ -154,12 +182,6 @@ public class UserServerService {
                         it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         context.startActivity(it);
 
-                        //Save User in SharedPreferences
-                        PrefUserUtil.saveUserSharedPreferences(
-                                context,
-                                user
-                        );
-
                     }
                 } else {
                     MessageActionUtil.makeText(
@@ -168,13 +190,21 @@ public class UserServerService {
                     );
                     //Torna a ProgressBar Invisivel
                     pbLoginLoading.setVisibility(View.INVISIBLE);
+                    //Enable Button
+                    btLogin.setEnabled(true);
+                    btLogin.setClickable(true);
+                    //Deixa os EditText's Vazios
+                    tvLoginEmail.setText("");
+                    tvLoginPassword.setText("");
                 }
             }
 
             /**
              * Método invocado se a conexão com o servidor não for bem
              * sucedida, retornando uma mensagem de erro que mostra
-             * o que aconteceu para a conexão não ter sido feita
+             * o que aconteceu para a conexão não ter sido feita e
+             * habilitando os valores desabilitados de {@link EditText}
+             * e {@link Button} para retornar a Activity
              *
              * @param call Chamado da API do servidor
              * @param t Erro ocorrido durante o chamado
@@ -191,6 +221,12 @@ public class UserServerService {
                 );
                 //Torna a ProgressBar Invisivel
                 pbLoginLoading.setVisibility(View.INVISIBLE);
+                //Enable Button
+                btLogin.setEnabled(true);
+                btLogin.setClickable(true);
+                //Deixa os EditText's Vazios
+                tvLoginEmail.setText("");
+                tvLoginPassword.setText("");
             }
         });
     }

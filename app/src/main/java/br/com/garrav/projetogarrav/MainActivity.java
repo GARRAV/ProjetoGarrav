@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText tvLoginEmail;
     private EditText tvLoginPassword;
+    private Button btLogin;
     private ProgressBar pbLoginLoading;
 
     @Override
@@ -79,9 +81,10 @@ public class MainActivity extends AppCompatActivity {
      */
     public void btLogin(View view) {
 
-        //Init EditText's
+        //Init EditText's & Button
         this.tvLoginEmail = findViewById(R.id.tvLoginEmail);
         this.tvLoginPassword = findViewById(R.id.tvLoginPassword);
+        this.btLogin = findViewById(R.id.btLogin);
 
         //Text Validator
         LoginTextValidator ltv = new LoginTextValidator();
@@ -100,19 +103,19 @@ public class MainActivity extends AppCompatActivity {
             //Init ProgressBar, e a torna Visivel
             this.pbLoginLoading = findViewById(R.id.pbLoginLoading);
             this.pbLoginLoading.setVisibility(View.VISIBLE);
+            //Disable Button
+            this.btLogin.setEnabled(false);
+            this.btLogin.setClickable(false);
 
             //Requisição Retrofit - Login
             UserServerService.getLoginUserFromServer(
                     this,
-                    this.tvLoginEmail.getText().toString(),
-                    this.tvLoginPassword.getText().toString(),
+                    this.tvLoginEmail,
+                    this.tvLoginPassword,
                     this.pbLoginLoading,
+                    this.btLogin,
                     ltv
             );
-
-            //Deixa os EditText's Vazios
-            this.tvLoginEmail.setText("");
-            this.tvLoginPassword.setText("");
         }
     }
 
