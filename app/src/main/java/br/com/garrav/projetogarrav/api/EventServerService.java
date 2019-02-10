@@ -1,5 +1,6 @@
-package br.com.garrav.projetogarrav.retrofitServerService;
+package br.com.garrav.projetogarrav.api;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -13,8 +14,10 @@ import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.List;
 
+import br.com.garrav.projetogarrav.EventPresenceListActivity;
 import br.com.garrav.projetogarrav.MapsEventsActivity;
 import br.com.garrav.projetogarrav.model.Event;
+import br.com.garrav.projetogarrav.model.Event_User;
 import br.com.garrav.projetogarrav.util.GsonUtil;
 import br.com.garrav.projetogarrav.util.MessageActionUtil;
 import br.com.garrav.projetogarrav.util.RetrofitUtil;
@@ -186,6 +189,117 @@ public class EventServerService {
                         "Não foi possivel cadastrar o evento: "
                                 + t.getMessage()
                 );
+            }
+        });
+    }
+
+    /**
+     * Método responsável por enviar uma requisição GET ao servidor
+     * e retornar uma List de eventos que o usuário já tenha sido
+     * registrado pelo usuário.
+     *
+     * @param context Contexto da atual activity em execução do android
+     * @param lstPresenceUser Lista de Id's dos eventos do usuário
+     * @param instance Intância de {@link EventPresenceListActivity}
+     * @param dialog Dialog de Carregamento
+     * @author Felipe Savaris
+     * @since 24/01/2019
+     */
+    public static void getPresenceEventFromServer(final Context context,
+                                                  List<Event_User> lstPresenceUser,
+                                                  final EventPresenceListActivity instance,
+                                                  final ProgressDialog dialog) {
+
+        //Definições Retrofit
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(RetrofitUtil.getUrlServer())
+                .client(RetrofitUtil.getClient())
+                .addConverterFactory(RetrofitUtil.getConverterFactory())
+                .build();
+
+        //Gson
+        Gson gson = new Gson();
+        String json = gson.toJson(lstPresenceUser);
+
+        //Restaga o link que fará o service com a API
+        EventService es = retrofit.create(EventService.class);
+
+        //Faz a conexão com a API
+        Call<JsonArray> callPresenceEventList
+                = es.getJsonPresenceEvent(json);
+
+        //Métodos da requisição com a API
+        callPresenceEventList.enqueue(new Callback<JsonArray>() {
+            /**
+             * Método responsável por entregar a lista de eventos
+             * advindas do servidor e desligar o Dialog de carregamento
+             *
+             * @param call Chamado da API do servidor
+             * @param response Resposta do Servidor
+             * @author Felipe Savaris
+             * @since 24/01/2019
+             */
+            @Override
+            public void onResponse(Call<JsonArray> call,
+                                   Response<JsonArray> response) {
+
+                if(response.body() == null) {
+                    //Dismiss ProgressDialog
+                    if(dialog.isShowing()) {
+                        dialog.dismiss();
+
+                        //Load Adapter
+                        instance.loadEventPresenceList();
+                    }
+                } else {
+
+                    //Json
+                    String json = response.body().toString();
+
+                    //Type Converter
+                    Type listType = new TypeToken<List<Event>>() {}.getType();
+
+                    //Lista de Eventos
+                    List<Event> listTmp = getEventListFromJson(json, listType);
+
+                    //Set List
+                    instance.setLstPrEventList(listTmp);
+
+                    //Dismiss ProgressDialog
+                    if (dialog.isShowing()) {
+                        dialog.dismiss();
+                    }
+
+                    //Load Adapter
+                    instance.loadEventPresenceList();
+                }
+            }
+
+            /**
+             * Método invocado se a conexão com o servidor não for bem
+             * sucedida, retornando uma mensagem de erro que mostra
+             * o que aconteceu para a conexão não ter sido feita
+             *
+             * @param call Chamado da API no servidor
+             * @param t Erro Ocorrido no durante o chamada
+             * @author Felipe Savaris
+             * @since 24/01/2019
+             */
+            @Override
+            public void onFailure(Call<JsonArray> call,
+                                  Throwable t) {
+
+                //Error Message
+                MessageActionUtil.makeText(
+                        context,
+                        t.getMessage()
+                );
+
+                //Dismiss ProgressDialog
+                if(dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+
             }
         });
     }

@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import br.com.garrav.projetogarrav.model.User;
-import br.com.garrav.projetogarrav.retrofitServerService.UserServerService;
+import br.com.garrav.projetogarrav.api.UserServerService;
 import br.com.garrav.projetogarrav.validation.RegisterTextValidator;
 
 public class RegisterActivity extends AppCompatActivity {

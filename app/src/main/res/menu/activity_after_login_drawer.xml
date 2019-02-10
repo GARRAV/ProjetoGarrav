@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <!-- Event's Presence List -->
+        <item
+            android:id="@+id/nav_event_presence"
+            android:title="@string/event" />
+        <!-- Options -->
+        <item
+            android:id="@+id/nav_options"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/options"/>
+        <!-- Report Problem -->
+        <item
+            android:id="@+id/nav_report_problem"
+            android:icon="@drawable/ic_warning_black_24dp"
+            android:title="@string/report_problem"/>
+        <!-- About -->
+        <item
+            android:id="@+id/nav_about"
+            android:title="@string/about"/>
+        <!-- Logout -->
+        <item
+            android:id="@+id/nav_logout"
+            android:title="@string/logout"/>
+    </group>
+</menu>

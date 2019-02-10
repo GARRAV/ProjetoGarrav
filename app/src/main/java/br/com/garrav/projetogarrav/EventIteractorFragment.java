@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 import br.com.garrav.projetogarrav.model.Event;
 import br.com.garrav.projetogarrav.model.Event_User;
 import br.com.garrav.projetogarrav.model.User;
-import br.com.garrav.projetogarrav.retrofitServerService.Event_UserServerService;
+import br.com.garrav.projetogarrav.api.Event_UserServerService;
 
 public class EventIteractorFragment extends Fragment {
 

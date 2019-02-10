@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rlContainerEvent"
+        android:layout_width="289dp"
+        android:layout_height="match_parent">
+
+        <!-- Name Event -->
+        <TextView
+            android:id="@+id/tvEventPresenceName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Example Name Event"
+            android:textSize="18sp" />
+
+        <!-- Address Event -->
+        <TextView
+            android:id="@+id/tvEventPresenceAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvEventPresenceName"
+            android:text="Example Address" />
+
+        <!-- Date Event -->
+        <TextView
+            android:id="@+id/tvEventPresenceDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvEventPresenceAddress"
+            android:text="Example Date" />
+
+    </RelativeLayout>
+
+    <!-- Cancel Presence on Event Button -->
+    <Button
+        android:id="@+id/btCancelEventPresence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/rlContainerEvent"
+        android:layout_toEndOf="@+id/rlContainerEvent"
+        android:text="Cancelar" />
+
+</RelativeLayout>

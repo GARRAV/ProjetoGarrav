@@ -25,4 +25,14 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="event">Eventos</string>
+    <string name="options">Opções</string>
+    <string name="report_problem">Reportar Problema</string>
+    <string name="about">Sobre</string>
+    <string name="logout">Sair</string>
+    <string name="title_activity_after_login">AfterLoginActivity</string>
+    <string name="emptyPresenceList">Você ainda não confirmou presença em nenhum evento</string>
+    <string name="messageTipProblem">Informe aqui se algum problema foi encontrado durante o uso do App para com que isso, possamos consertar o problema e melhorar o App cada vez mais!</string>
+    <string name="hintReportProblem">Especifique o Problema Encontrado Aqui</string>
+    <string name="sendProblem">Enviar Bug</string>
 </resources>
