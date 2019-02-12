@@ -65,8 +65,7 @@ public class RegisterEventActivity extends AppCompatActivity {
         //Longitude Adapter
         this.longitude = etv.valLongitude(latLng);
         //Find Address by Coordinates
-        LocationUtil lu = new LocationUtil();
-        Address address = lu.seekAddress(
+        Address address = LocationUtil.seekAddress(
                 this,
                 this.latitude,
                 this.longitude

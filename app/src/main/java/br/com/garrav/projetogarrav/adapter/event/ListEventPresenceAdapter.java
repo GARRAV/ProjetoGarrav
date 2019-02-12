@@ -79,8 +79,7 @@ public class ListEventPresenceAdapter extends BaseAdapter {
         }
 
         //Get Address
-        LocationUtil lu = new LocationUtil();
-        Address address = lu.seekAddress(
+        Address address = LocationUtil.seekAddress(
                 context,
                 EVENT.getLatitude(),
                 EVENT.getLongitude()
