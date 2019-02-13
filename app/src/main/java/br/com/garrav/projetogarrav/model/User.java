@@ -10,6 +10,7 @@ public class User {
     private String email;
     private Date date_account;
     private String password;
+    private String type_user;
 
     //Actual User
     private static User uniqueUser;
@@ -60,6 +61,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getType_user() {
+        return type_user;
+    }
+
+    public void setType_user(String type_user) {
+        this.type_user = type_user;
     }
 
     //Actual User

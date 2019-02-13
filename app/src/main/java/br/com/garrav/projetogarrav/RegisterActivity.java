@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
+import java.util.Date;
+
 import br.com.garrav.projetogarrav.model.User;
 import br.com.garrav.projetogarrav.api.UserServerService;
 import br.com.garrav.projetogarrav.validation.RegisterTextValidator;
@@ -48,6 +50,8 @@ public class RegisterActivity extends AppCompatActivity {
         user.setEmail(this.etEmail.getText().toString());
         user.setName(this.etName.getText().toString());
         user.setFic_name(this.etFicName.getText().toString());
+        //Set Type User
+        user.setType_user("COMMON");
 
         //Validator
         RegisterTextValidator rtv = new RegisterTextValidator();
@@ -64,7 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
             user.setPassword(rtv.hashPassword(this.etPassword.getText().toString()));
 
             //Get Actual Date to Instance
-            user.setDate_account(rtv.getActualDateToAccount());
+            user.setDate_account(new Date());
 
             //Send Data to Server
             UserServerService.postLoginUserToServer(this, user);

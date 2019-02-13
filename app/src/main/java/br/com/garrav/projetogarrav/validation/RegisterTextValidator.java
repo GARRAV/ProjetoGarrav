@@ -137,17 +137,4 @@ public class RegisterTextValidator {
         return password;
     }
 
-    /**
-     * Método responsável por retornar uma Date na data atual
-     *
-     * @return Date na data atual
-     * @author Felipe Savaris
-     * @since 08/01/2019
-     */
-    public Date getActualDateToAccount() {
-
-        //Actual Date
-        return new Date();
-    }
-
 }

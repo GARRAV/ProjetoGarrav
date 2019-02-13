@@ -9,63 +9,6 @@ import br.com.garrav.projetogarrav.util.MessageActionUtil;
 public class EventTextValidator {
 
     /**
-     * Método responsável por receber uma String contendo a latitude
-     * e longitude do local selecionado no Maps e formatá-lo para separar
-     * seu conteúdo para os inserir em suas devidas variáveis Double.
-     * O texto recebido é separado em duas partes e colocado a latitude em sua
-     * variável Double
-     *
-     * @param latLng Latitude e Longitude em forma de texto
-     * @return Valor da latitude em Double
-     * @author Felipe Savaris
-     * @since 18/12/2018
-     */
-    public double valLatitude(String latLng) {
-
-        //Processo de Formatação de texto
-        latLng = latLng.replace("lat/lng: (", "");
-        latLng = latLng.replace(",", " ");
-        latLng = latLng.replace(")", "");
-
-        //Get Double Latitude from String
-        return Double.parseDouble(
-                latLng.substring(
-                        0,
-                        latLng.indexOf(" ")
-                )
-        );
-    }
-
-    /**
-     * Método responsável por receber uma String contendo a latitude
-     * e longitude do local selecionado no Maps e formatá-lo para separar
-     * seu conteúdo para os inserir em suas devidas variáveis Double.
-     * O texto recebido é separado em duas partes e colocado a longitude em sua
-     * variável Double
-     *
-     * @param latLng Latitude e Longitude em forma de texto
-     * @return Valor da Longitude em Double
-     * @author Felipe Savaris
-     * @since 18/12/2018
-     */
-    public double valLongitude(String latLng) {
-
-        //Processo de Formatação de texto
-        latLng = latLng.replace("lat/lng: (", "");
-        latLng = latLng.replace(",", " ");
-        latLng = latLng.replace(")", "");
-
-        //Get Double Longitude from String
-        return Double.parseDouble(
-                latLng.substring(
-                        latLng.lastIndexOf(" ") + 1,
-                        latLng.length()
-                )
-        );
-
-    }
-
-    /**
      * Método responsável por verificar se a data informada pelo usuário é
      * válida ou não para o Evento. Os filtros de datas se referem ao passado,
      * ou seja, caso a data esteja em um dia anterior a data atual, o resultado

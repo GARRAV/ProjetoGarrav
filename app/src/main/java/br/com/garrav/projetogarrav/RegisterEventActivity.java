@@ -55,15 +55,10 @@ public class RegisterEventActivity extends AppCompatActivity {
         Inicio Tratamento Coordenadas
          */
 
-        //Get Intent Coordinates
-        //Variáveis Address Endereço
-        String latLng = getIntent().getStringExtra("coordinates");
-        //Adapter Coordinates
-        EventTextValidator etv = new EventTextValidator();
-        //Latitude Adapter
-        this.latitude = etv.valLatitude(latLng);
-        //Longitude Adapter
-        this.longitude = etv.valLongitude(latLng);
+        //Latitude
+        this.latitude = getIntent().getDoubleExtra("Lat", 0);
+        //Longitude
+        this.longitude = getIntent().getDoubleExtra("Lng", 0);
         //Find Address by Coordinates
         Address address = LocationUtil.seekAddress(
                 this,
@@ -76,10 +71,10 @@ public class RegisterEventActivity extends AppCompatActivity {
         this.etAddressEvent.setText(
                 address.getAddressLine(0)
         );
+
         /*
         Fim Tratamento Coordenadas
          */
-
         /*
         Inicio Tratamento Data
         */

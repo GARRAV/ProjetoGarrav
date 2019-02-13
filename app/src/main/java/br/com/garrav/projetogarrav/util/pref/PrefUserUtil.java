@@ -62,6 +62,14 @@ public class PrefUserUtil {
                 PrefKeysUtil.KEY_USER_DATE,
                 user.getDate_account().getTime()
         );
+
+        //Type User
+        PrefData.addSharedPreferences(
+                context,
+                PrefKeysUtil.KEY_USER,
+                PrefKeysUtil.KEY_USER_TYPE,
+                user.getType_user()
+        );
     }
 
     /**
@@ -124,6 +132,15 @@ public class PrefUserUtil {
                 )
         );
         user.setDate_account(date);
+
+        //Type_User
+        user.setType_user(
+                PrefData.getStringSharedPreferences(
+                        context,
+                        PrefKeysUtil.KEY_USER,
+                        PrefKeysUtil.KEY_USER_TYPE
+                )
+        );
 
         return user;
     }

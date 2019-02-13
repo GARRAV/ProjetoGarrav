@@ -117,7 +117,10 @@ public class MapsFragment
                     getContext(),
                     RegisterEventActivity.class
             );
-            it.putExtra("coordinates", latLng.toString());
+            //Latitude
+            it.putExtra("Lat", latLng.latitude);
+            //Longitude
+            it.putExtra("Lng", latLng.longitude);
             startActivity(it);
             EVENT_REGISTER = false;
         }

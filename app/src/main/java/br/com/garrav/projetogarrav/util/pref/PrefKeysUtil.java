@@ -14,5 +14,6 @@ class PrefKeysUtil {
     static final String KEY_USER_FIC_NAME = "KEY_USER_FIC_NAME";
     static final String KEY_USER_EMAIL = "KEY_USER_EMAIL";
     static final String KEY_USER_DATE = "KEY_USER_DATE";
+    static final String KEY_USER_TYPE = "KEY_USER_TYPE";
 
 }
