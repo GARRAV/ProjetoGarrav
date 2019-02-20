@@ -35,4 +35,5 @@
     <string name="messageTipProblem">Informe aqui se algum problema foi encontrado durante o uso do App para com que isso, possamos consertar o problema e melhorar o App cada vez mais!</string>
     <string name="hintReportProblem">Especifique o Problema Encontrado Aqui</string>
     <string name="sendProblem">Enviar Bug</string>
+    <string name="howMuchDistance">Está a: </string>
 </resources>
