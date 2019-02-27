@@ -1,41 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="10dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="125dp">
+    <ImageView
+        android:id="@+id/ivImageFriend"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_weight="1"
+        android:contentDescription="@string/app_name" />
 
-        <TextView
-            android:id="@+id/tvSupportiveFriendName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:text="Example Name AMISSOL"/>
-
-        <TextView
-            android:id="@+id/tvSupportiveFriendDistance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvSupportiveFriendName"
-            android:paddingLeft="10dp"
-            android:textSize="15sp"
-            android:text="@string/howMuchDistance"/>
-
-        <TextView
-            android:id="@+id/tvDistanceInMeters"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvSupportiveFriendDistance"
-            android:paddingLeft="10dp"
-            android:text="Example Meters: 500m"
-            android:textSize="15sp" />
-
-    </RelativeLayout>
-
-</RelativeLayout>
+    <TextView
+        android:id="@+id/tvFriendName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="99"
+        android:gravity="center"
+        android:text=""
+        android:textStyle="bold" />
+</LinearLayout>
