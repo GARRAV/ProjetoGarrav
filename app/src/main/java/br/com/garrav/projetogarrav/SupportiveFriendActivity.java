@@ -3,7 +3,6 @@ package br.com.garrav.projetogarrav;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -28,15 +27,25 @@ public class SupportiveFriendActivity extends AppCompatActivity {
         loadSupportiveFriendList();
     }
 
+    /**
+     * Método responsável por carregar o adapter do {@link ListView} e mostra-los
+     * na Activiy
+     *
+     * @author Felipe Savaris
+     * @since 27/02/2019
+     */
     private void loadSupportiveFriendList() {
 
+        // Init ListView
         this.lvSuportiveFriendList = findViewById(R.id.lvSuportiveFriendList);
 
+        // Adaptaer ListView
         ListSupportiveFriendAdapter adapter = new ListSupportiveFriendAdapter(
                 this,
                 this.nossoArray
         );
 
+        // Set Adapter no ListView
         this.lvSuportiveFriendList.setAdapter(adapter);
 
         adapter.notifyDataSetChanged();
