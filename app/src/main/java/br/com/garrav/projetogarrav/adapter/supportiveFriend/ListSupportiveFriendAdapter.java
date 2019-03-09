@@ -15,29 +15,30 @@ import com.amulyakhare.textdrawable.util.ColorGenerator;
 import java.util.List;
 
 import br.com.garrav.projetogarrav.R;
+import br.com.garrav.projetogarrav.model.User;
 
 public class ListSupportiveFriendAdapter extends BaseAdapter {
 
     private Context context;
-    private List<String> listaDeAmigos;
+    private List<User> lstSupportiveFriend;
     private LayoutInflater mLayoutInflater;
 
     public ListSupportiveFriendAdapter(Context context,
-                                       List<String> obj) {
+                                       List<User> lstSupportiveFriend) {
 
         this.mLayoutInflater = mLayoutInflater.from(context);
         this.context = context;
-        this.listaDeAmigos = obj;
+        this.lstSupportiveFriend = lstSupportiveFriend;
     }
 
     @Override
     public int getCount(){
-        return this.listaDeAmigos.size();
+        return this.lstSupportiveFriend.size();
     }
 
     @Override
     public Object getItem(int posicao){
-        return this.listaDeAmigos.get(posicao);
+        return this.lstSupportiveFriend.get(posicao);
     }
 
     @Override
@@ -72,7 +73,6 @@ public class ListSupportiveFriendAdapter extends BaseAdapter {
         //Set Friend Name
         HOLDER.tvFriendName.setText(name);
 
-        //Aqui acontece a magia, pegamos a primeira letra do nome do nosso amigo
         String primeiraLetra = String.valueOf(name.charAt(0));
 
         ColorGenerator geradorDeCores = ColorGenerator.MATERIAL;

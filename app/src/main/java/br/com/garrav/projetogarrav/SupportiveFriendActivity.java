@@ -1,32 +1,38 @@
 package br.com.garrav.projetogarrav;
 
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import br.com.garrav.projetogarrav.adapter.supportiveFriend.ListSupportiveFriendAdapter;
+import br.com.garrav.projetogarrav.model.User;
 
 public class SupportiveFriendActivity extends AppCompatActivity {
 
     private ListView lvSuportiveFriendList;
-    private ArrayList<String> nossoArray;
+    private List<User> lstSupportiveFriend;
+    private LocationManager locationManager;
+    private Location location;
+    private double latitude;
+    private double longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_supportive_friend);
+				super.onCreate(savedInstanceState);
+				setContentView(R.layout.activity_supportive_friend);
 
-        ActionBar ab = getSupportActionBar();
-        ab.setTitle("Amigo Solidário");
+				getLocation();
 
-        setData();
+				ActionBar ab = getSupportActionBar();
+				ab.setTitle("AMISSOL");
 
-        loadSupportiveFriendList();
-    }
-
+				loadSupportiveFriendList();
+		}
     /**
      * Método responsável por carregar o adapter do {@link ListView} e mostra-los
      * na Activiy
@@ -39,10 +45,10 @@ public class SupportiveFriendActivity extends AppCompatActivity {
         // Init ListView
         this.lvSuportiveFriendList = findViewById(R.id.lvSuportiveFriendList);
 
-        // Adaptaer ListView
+        // Adapter ListView
         ListSupportiveFriendAdapter adapter = new ListSupportiveFriendAdapter(
                 this,
-                this.nossoArray
+                this.lstSupportiveFriend
         );
 
         // Set Adapter no ListView
@@ -51,20 +57,11 @@ public class SupportiveFriendActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    //Inicialização da nossa lista de amigos
-    private void setData() {
-        nossoArray = new ArrayList<>();
-        nossoArray.add("Ilidio Zandamela");
-        nossoArray.add("Florêncio Lipoche");
-        nossoArray.add("Helena Sitoe");
-        nossoArray.add("Isack Mabunda");
-        nossoArray.add("Vânia Khumalo");
-        nossoArray.add("Genny Macaringue ");
-        nossoArray.add("Edson Mazuze");
-        nossoArray.add("Jaime Mulungo");
-        nossoArray.add("Crimilde Nguila");
-        nossoArray.add("Thobile Coutinho");
-        nossoArray.add("Alison Conceição");
-        nossoArray.add("Julia Maposse");
-    }
+    private void getLocation() {
+    		this.locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+    		this.location = this.locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+    		this.latitude = this.location.getLatitude();
+    		this.longitude = this.location.getLongitude();
+		}
 }
